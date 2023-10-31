@@ -2,7 +2,7 @@
 
 public class ChaseState : BaseState
 {
-    public ChaseState(Enemy enemy, StateMachine stateMachine) : base(enemy, stateMachine) {}
+    public ChaseState(Enemy enemy, StateMachine stateMachine, EnemyTracker enemyTracker) : base(enemy, stateMachine, enemyTracker) {}
 
     public override void EnterState()
     {
@@ -10,11 +10,11 @@ public class ChaseState : BaseState
     }
     public override void UpdateState()
     {
-        if (_enemy.IsBlocked == false && _enemy.DistanceToEnemy <= _enemy.AttackDistance)
+        if (_enemyTracker.IsBlocked == false && _enemyTracker.DistanceToEnemy <= _enemyTracker.AttackDistance)
         {
             _stateMachine.SwitchState(_enemy.AttackState);
         }
-        else if (_enemy.DistanceToEnemy > _enemy.DetectDistance || _enemy.target is null)
+        else if (_enemyTracker.DistanceToEnemy > _enemyTracker.DetectDistance)
         {
             _stateMachine.SwitchState(_enemy.SearchState);
         }

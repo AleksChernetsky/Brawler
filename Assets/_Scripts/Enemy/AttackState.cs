@@ -2,15 +2,15 @@
 
 public class AttackState : BaseState
 {
-    public AttackState(Enemy enemy, StateMachine stateMachine) : base(enemy, stateMachine) {}
-    
+    public AttackState(Enemy enemy, StateMachine stateMachine, EnemyTracker enemyTracker) : base(enemy, stateMachine, enemyTracker) {}
+
     public override void EnterState()
     {
         Debug.Log("Enter Attack State");
     }
     public override void UpdateState()
     {
-        if(_enemy.IsBlocked == true || _enemy.DistanceToEnemy > _enemy.AttackDistance)
+        if (_enemyTracker.IsBlocked == true || _enemyTracker.DistanceToEnemy > _enemyTracker.AttackDistance)
         {
             _stateMachine.SwitchState(_enemy.ChaseState);
         }

@@ -1,23 +1,18 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour, IDamageable
 {
     [SerializeField] private Weapon weapon;
-    public List<Transform> _targets;
-    public Transform target = null;
 
-    private EnemyPositionTracker _positionTracker;
+    public EnemyTracker enemyTracker;
     private AnimationHandler _animHandler;
     private GameObject[] _patrolPoints;
     private NavMeshAgent _agent;
 
     private int _currentPatrolPoint = 0, _distanceToChangePatrolPoint = 2;
     private float ReloadTime;
-
-    public bool IsBlocked;
-    public float DetectDistance, AttackDistance, DistanceToEnemy, FireRate;
+    public float FireRate;
 
     [field: SerializeField] public float MaxHealth { get; set; } = 100f;
     public float CurrentHealth { get; set; }
@@ -31,9 +26,9 @@ public class Enemy : MonoBehaviour, IDamageable
     {
         StateMachine = new StateMachine();
 
-        ChaseState = new ChaseState(this, StateMachine);
-        AttackState = new AttackState(this, StateMachine);
-        SearchState = new SearchState(this, StateMachine);
+        ChaseState = new ChaseState(this, StateMachine, enemyTracker);
+        AttackState = new AttackState(this, StateMachine, enemyTracker);
+        SearchState = new SearchState(this, StateMachine, enemyTracker);
     }
 
     private void Start()
@@ -52,17 +47,8 @@ public class Enemy : MonoBehaviour, IDamageable
         StateMachine.CurrentState.UpdateState();
     }
 
-    private void FixedUpdate()
-    {
-        if (target != null)
-        {
-            DistanceToEnemy = Vector3.Distance(transform.position, target.transform.position);
-            EnemyBlocked();
-        }
-    }
-
     // -----------------------------------------------------------------------------------------------------------------    
-    
+
     public void EnemySearch()
     {
         _agent.isStopped = false;
@@ -79,7 +65,7 @@ public class Enemy : MonoBehaviour, IDamageable
         _agent.isStopped = false;
         _animHandler.PlayRunAnimation();
 
-        _agent.destination = target.transform.position;
+        _agent.destination = enemyTracker.target.transform.position;
     }
 
     public void Attack()
@@ -87,7 +73,7 @@ public class Enemy : MonoBehaviour, IDamageable
         _animHandler.PlayAttackAnimation();
         _agent.isStopped = true;
         ReloadTime += Time.deltaTime;
-        _agent.transform.LookAt(target.transform.position);
+        _agent.transform.LookAt(enemyTracker.target.transform.position);
 
         if (ReloadTime >= FireRate)
         {
@@ -97,23 +83,7 @@ public class Enemy : MonoBehaviour, IDamageable
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-    private void EnemyBlocked()
-    {
-        NavMeshHit hit;
 
-        IsBlocked = NavMesh.Raycast(transform.position, target.transform.position, out hit, NavMesh.AllAreas);
-        Debug.DrawLine(transform.position, target.transform.position, IsBlocked ? Color.red : Color.green);
-
-        if (IsBlocked)
-        {
-            Debug.DrawRay(hit.position, Vector3.up, Color.yellow);
-            IsBlocked = true;
-        }
-        else
-        {
-            IsBlocked = false;
-        }
-    }
 
     public void TakeDamage(float damage)
     {

@@ -2,7 +2,7 @@
 
 public class SearchState : BaseState
 {
-    public SearchState(Enemy enemy, StateMachine stateMachine) : base(enemy, stateMachine) { }
+    public SearchState(Enemy enemy, StateMachine stateMachine, EnemyTracker enemyTracker) : base(enemy, stateMachine, enemyTracker) {}
 
     public override void EnterState()
     {
@@ -12,7 +12,7 @@ public class SearchState : BaseState
     {
         _enemy.EnemySearch();
 
-        if (_enemy.DistanceToEnemy <= _enemy.DetectDistance && _enemy.target != null)
+        if (_enemyTracker.DistanceToEnemy <= _enemyTracker.DetectDistance)
         {
             _stateMachine.SwitchState(_enemy.ChaseState);
         }
