@@ -5,7 +5,7 @@ public class Enemy : MonoBehaviour, IDamageable
 {
     [SerializeField] private Weapon weapon;
 
-    public EnemyTracker enemyTracker;
+    private EnemyTracker enemyTracker;
     private AnimationHandler _animHandler;
     private GameObject[] _patrolPoints;
     private NavMeshAgent _agent;
@@ -24,6 +24,8 @@ public class Enemy : MonoBehaviour, IDamageable
 
     private void Awake()
     {
+        enemyTracker = GetComponent<EnemyTracker>();
+
         StateMachine = new StateMachine();
 
         ChaseState = new ChaseState(this, StateMachine, enemyTracker);
@@ -83,7 +85,6 @@ public class Enemy : MonoBehaviour, IDamageable
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-
 
     public void TakeDamage(float damage)
     {

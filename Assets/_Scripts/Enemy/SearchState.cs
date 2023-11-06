@@ -2,7 +2,7 @@
 
 public class SearchState : BaseState
 {
-    public SearchState(Enemy enemy, StateMachine stateMachine, EnemyTracker enemyTracker) : base(enemy, stateMachine, enemyTracker) {}
+    public SearchState(Enemy enemy, StateMachine stateMachine, EnemyTracker enemyTracker) : base(enemy, stateMachine, enemyTracker) { }
 
     public override void EnterState()
     {
@@ -19,6 +19,6 @@ public class SearchState : BaseState
     }
     public override void ExitState()
     {
-        Debug.Log("Exit Search State");
+
     }
 }

@@ -2,7 +2,7 @@
 
 public class AttackState : BaseState
 {
-    public AttackState(Enemy enemy, StateMachine stateMachine, EnemyTracker enemyTracker) : base(enemy, stateMachine, enemyTracker) {}
+    public AttackState(Enemy enemy, StateMachine stateMachine, EnemyTracker enemyTracker) : base(enemy, stateMachine, enemyTracker) { }
 
     public override void EnterState()
     {
@@ -21,6 +21,6 @@ public class AttackState : BaseState
     }
     public override void ExitState()
     {
-        Debug.Log("Exit Attack State");
+
     }
 }

@@ -2,7 +2,7 @@
 
 public class ChaseState : BaseState
 {
-    public ChaseState(Enemy enemy, StateMachine stateMachine, EnemyTracker enemyTracker) : base(enemy, stateMachine, enemyTracker) {}
+    public ChaseState(Enemy enemy, StateMachine stateMachine, EnemyTracker enemyTracker) : base(enemy, stateMachine, enemyTracker) { }
 
     public override void EnterState()
     {
@@ -25,6 +25,6 @@ public class ChaseState : BaseState
     }
     public override void ExitState()
     {
-        Debug.Log("Exit Chase State");
+
     }
 }

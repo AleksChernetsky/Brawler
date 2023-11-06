@@ -1,14 +1,12 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
 
 public class EnemyTracker : MonoBehaviour
 {
-    [SerializeField] public LayerMask layermask;
-    [SerializeField] public float checkRadius;
-    [SerializeField] public Collider[] enemyColliders;
+    [SerializeField] private LayerMask layermask;
+    [SerializeField] private float checkRadius;
 
-    public List<Transform> targets;
+    private Collider[] enemyColliders;
 
     public bool IsBlocked;
     public float DistanceToEnemy, DetectDistance, AttackDistance;
@@ -29,31 +27,24 @@ public class EnemyTracker : MonoBehaviour
 
     private void Update()
     {
-        targets = new List<Transform>(enemyColliders.Length);
-
         enemyColliders = Physics.OverlapSphere(transform.position, checkRadius, layermask);
 
         foreach (var enemies in enemyColliders)
         {
             if (enemies.transform != transform)
             {
-                targets.Add(enemies.transform);
-            }
-        }
+                DistanceToEnemy = (transform.position - enemies.transform.position).sqrMagnitude;
 
-        foreach (var enemy in targets)
-        {
-            DistanceToEnemy = (transform.position - enemy.transform.position).sqrMagnitude;
-
-            if (DistanceToEnemy <= DetectDistance)
-            {
-                target = enemy.transform;
-                EnemyBlocked();
-            }
-            else
-            {
-                target = null;
-                DistanceToEnemy = float.MaxValue;
+                if (DistanceToEnemy <= DetectDistance)
+                {
+                    target = enemies.transform;
+                    EnemyBlocked();
+                }
+                else
+                {
+                    target = null;
+                    DistanceToEnemy = float.MaxValue;
+                }
             }
         }
     }
