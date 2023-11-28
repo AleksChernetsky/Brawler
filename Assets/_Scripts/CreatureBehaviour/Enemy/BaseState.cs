@@ -11,15 +11,9 @@
         _enemyTracker = enemyTracker;
     }
 
-    public virtual void EnterState()
-    {
-    }
+    public virtual void EnterState() { }
 
-    public virtual void UpdateState()
-    {
-    }
+    public virtual void UpdateState() { }
 
-    public virtual void ExitState()
-    {
-    }
+    public virtual void ExitState() { }
 }

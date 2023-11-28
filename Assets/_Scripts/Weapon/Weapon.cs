@@ -4,27 +4,26 @@ public class Weapon : MonoBehaviour
 {
     [SerializeField] private GameObject _bulletPrefab;
     [SerializeField] private Transform _bulletSpawnPoint;
-    [SerializeField] private float _projectileSpeed;
 
-    private void Shoot()
-    {
-        GameObject bullet = Instantiate(_bulletPrefab, _bulletSpawnPoint.position, _bulletSpawnPoint.rotation);
-        bullet.GetComponent<Rigidbody>().velocity = transform.forward * _projectileSpeed;
-        Destroy(bullet, 1.5f);
-    }
+    public DamageConfigScriptableObject DamageConfig;
 
     public void ShootRifle()
     {
-        Shoot();
+        GameObject bullet = Instantiate(_bulletPrefab, _bulletSpawnPoint.position, _bulletSpawnPoint.rotation);
+        bullet.GetComponent<Rigidbody>().velocity = transform.forward * DamageConfig.ProjectileSpeed;
+        Destroy(bullet, 1.5f);
     }
 
     public void ShootShotGun()
     {
-        var bulletCount = 0;
-        while (bulletCount < 10)
+        for (int i = 0; i < DamageConfig.BulletsAmount; i++)
         {
-            Shoot();
-            bulletCount++;
+            GameObject bullet = Instantiate(_bulletPrefab, _bulletSpawnPoint.position, _bulletSpawnPoint.rotation);
+
+            Vector3 dir = transform.forward + new Vector3(Random.Range(DamageConfig.HorizontalBulletsSpread, DamageConfig.HorizontalBulletsSpread),
+                Random.Range(-DamageConfig.VerticalBulletsSpread, DamageConfig.VerticalBulletsSpread), 0);
+            
+            bullet.GetComponent<Rigidbody>().AddForce(dir * DamageConfig.ProjectileSpeed, ForceMode.Impulse);
         }
     }
 }

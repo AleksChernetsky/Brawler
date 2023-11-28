@@ -23,7 +23,13 @@ public class EnemyTracker : MonoBehaviour
     private void Start()
     {
         DistanceToEnemy = float.MaxValue;
+        target = null;
     }
+
+    //private void HandleEnemyDefeated(VitalitySystem enemy)
+    //{
+
+    //}
 
     private void Update()
     {

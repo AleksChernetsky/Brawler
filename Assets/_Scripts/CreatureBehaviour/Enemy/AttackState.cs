@@ -10,13 +10,21 @@ public class AttackState : BaseState
     }
     public override void UpdateState()
     {
-        if (_enemyTracker.IsBlocked == true || _enemyTracker.DistanceToEnemy > _enemyTracker.AttackDistance)
+        if (_enemyTracker.target != null)
         {
-            _stateMachine.SwitchState(_enemy.ChaseState);
+            if (_enemyTracker.IsBlocked == true || _enemyTracker.DistanceToEnemy > _enemyTracker.AttackDistance)
+            {
+                _stateMachine.SwitchState(_enemy.ChaseState);
+            }
+            else
+            {
+                _enemy.Attack();
+            }
         }
         else
         {
-            _enemy.Attack();
+            _enemyTracker.target = null;
+            _stateMachine.SwitchState(_enemy.SearchState);
         }
     }
     public override void ExitState()

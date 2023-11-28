@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerBehaviour : MonoBehaviour, IDamageable
+public class PlayerBehaviour : MonoBehaviour
 {
     [SerializeField] protected Weapon _weapon;
     [SerializeField] protected float _moveSpeed, _rotateSpeed;
@@ -11,14 +11,9 @@ public class PlayerBehaviour : MonoBehaviour, IDamageable
     private float ReloadTime;
     public float FireRate;
 
-    [field: SerializeField] public float MaxHealth { get; set; } = 100f;
-    public float CurrentHealth { get; set; }
-
     private void Start()
     {
-        CurrentHealth = MaxHealth;
-
-        _animHandler = this.GetComponent<AnimationHandler>();
+        _animHandler = GetComponent<AnimationHandler>();
     }
 
     private void FixedUpdate()
@@ -61,18 +56,8 @@ public class PlayerBehaviour : MonoBehaviour, IDamageable
         {
             transform.eulerAngles = new Vector3(transform.eulerAngles.x, _shootDirection.eulerAngles.y, transform.eulerAngles.z);
             _animHandler.PlayAttackAnimation();
-            _weapon.ShootRifle();
+            _weapon.ShootShotGun();
             ReloadTime = 0;
         }
-    }
-
-    public void TakeDamage(float damage)
-    {
-
-    }
-
-    public void Die()
-    {
-
     }
 }

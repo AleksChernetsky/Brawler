@@ -1,11 +1,11 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Enemy : MonoBehaviour, IDamageable
+public class Enemy : MonoBehaviour
 {
-    [SerializeField] private Weapon weapon;
+    [SerializeField] protected Weapon _weapon;
 
-    private EnemyTracker enemyTracker;
+    private EnemyTracker _enemyTracker;
     private AnimationHandler _animHandler;
     private GameObject[] _patrolPoints;
     private NavMeshAgent _agent;
@@ -14,29 +14,24 @@ public class Enemy : MonoBehaviour, IDamageable
     private float ReloadTime;
     public float FireRate;
 
-    [field: SerializeField] public float MaxHealth { get; set; } = 100f;
-    public float CurrentHealth { get; set; }
-
     public StateMachine StateMachine { get; set; }
     public ChaseState ChaseState { get; set; }
     public AttackState AttackState { get; set; }
-    public SearchState SearchState { get; set; }
+    public SearchState SearchState { get; set; }    
 
     private void Awake()
     {
-        enemyTracker = GetComponent<EnemyTracker>();
+        _enemyTracker = GetComponent<EnemyTracker>();
 
         StateMachine = new StateMachine();
 
-        ChaseState = new ChaseState(this, StateMachine, enemyTracker);
-        AttackState = new AttackState(this, StateMachine, enemyTracker);
-        SearchState = new SearchState(this, StateMachine, enemyTracker);
+        ChaseState = new ChaseState(this, StateMachine, _enemyTracker);
+        AttackState = new AttackState(this, StateMachine, _enemyTracker);
+        SearchState = new SearchState(this, StateMachine, _enemyTracker);
     }
 
     private void Start()
     {
-        CurrentHealth = MaxHealth;
-
         _animHandler = GetComponent<AnimationHandler>();
         _agent = GetComponent<NavMeshAgent>();
         _patrolPoints = GameObject.FindGameObjectsWithTag("PatrolPoint");
@@ -59,7 +54,7 @@ public class Enemy : MonoBehaviour, IDamageable
         _agent.destination = _patrolPoints[_currentPatrolPoint].transform.position;
 
         if (_agent.remainingDistance < _distanceToChangePatrolPoint)
-            _currentPatrolPoint = Random.Range(0, _patrolPoints.Length);
+            _currentPatrolPoint = UnityEngine.Random.Range(0, _patrolPoints.Length);
     }
 
     public void EnemyChase()
@@ -67,7 +62,7 @@ public class Enemy : MonoBehaviour, IDamageable
         _agent.isStopped = false;
         _animHandler.PlayRunAnimation();
 
-        _agent.destination = enemyTracker.target.transform.position;
+        _agent.destination = _enemyTracker.target.transform.position;
     }
 
     public void Attack()
@@ -75,28 +70,12 @@ public class Enemy : MonoBehaviour, IDamageable
         _animHandler.PlayAttackAnimation();
         _agent.isStopped = true;
         ReloadTime += Time.deltaTime;
-        _agent.transform.LookAt(enemyTracker.target.transform.position);
+        _agent.transform.LookAt(_enemyTracker.target.transform.position);
 
         if (ReloadTime >= FireRate)
         {
-            weapon.ShootRifle();
+            _weapon.ShootShotGun();
             ReloadTime = 0;
         }
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-
-    public void TakeDamage(float damage)
-    {
-        CurrentHealth -= damage;
-        if (CurrentHealth <= 0f)
-        {
-            Die();
-        }
-    }
-
-    public void Die()
-    {
-        Destroy(gameObject);
     }
 }
