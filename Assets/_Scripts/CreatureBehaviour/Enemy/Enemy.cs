@@ -17,7 +17,7 @@ public class Enemy : MonoBehaviour
     public StateMachine StateMachine { get; set; }
     public ChaseState ChaseState { get; set; }
     public AttackState AttackState { get; set; }
-    public SearchState SearchState { get; set; }    
+    public SearchState SearchState { get; set; }
 
     private void Awake()
     {
@@ -54,7 +54,7 @@ public class Enemy : MonoBehaviour
         _agent.destination = _patrolPoints[_currentPatrolPoint].transform.position;
 
         if (_agent.remainingDistance < _distanceToChangePatrolPoint)
-            _currentPatrolPoint = UnityEngine.Random.Range(0, _patrolPoints.Length);
+            _currentPatrolPoint = Random.Range(0, _patrolPoints.Length);
     }
 
     public void EnemyChase()
@@ -74,7 +74,7 @@ public class Enemy : MonoBehaviour
 
         if (ReloadTime >= FireRate)
         {
-            _weapon.ShootShotGun();
+            //_weapon.ShootShotGun();
             ReloadTime = 0;
         }
     }

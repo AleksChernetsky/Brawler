@@ -10,18 +10,21 @@ public class ChaseState : BaseState
     }
     public override void UpdateState()
     {
-        if (_enemyTracker.IsBlocked == false && _enemyTracker.DistanceToEnemy <= _enemyTracker.AttackDistance)
+        if (_enemyTracker.target != null)
         {
-            _stateMachine.SwitchState(_enemy.AttackState);
-        }
-        else if (_enemyTracker.DistanceToEnemy > _enemyTracker.DetectDistance)
-        {
-            _stateMachine.SwitchState(_enemy.SearchState);
-        }
-        else
-        {
-            _enemy.EnemyChase();
-        }
+            if (_enemyTracker.IsBlocked == false && _enemyTracker.DistanceToEnemy <= _enemyTracker.AttackDistance)
+            {
+                _stateMachine.SwitchState(_enemy.AttackState);
+            }
+            else if (_enemyTracker.DistanceToEnemy > _enemyTracker.DetectDistance)
+            {
+                _stateMachine.SwitchState(_enemy.SearchState);
+            }
+            else
+            {
+                _enemy.EnemyChase();
+            }
+        }        
     }
     public override void ExitState()
     {

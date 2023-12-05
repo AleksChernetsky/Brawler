@@ -2,28 +2,78 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    [SerializeField] private GameObject _bulletPrefab;
-    [SerializeField] private Transform _bulletSpawnPoint;
+    [Header("Damage")]
+    [SerializeField, Min(0f)] private float _damage = 10f;
 
-    public DamageConfigScriptableObject DamageConfig;
+    [Header("Ray")]
+    [SerializeField] private LayerMask _layerMask;
+    [SerializeField, Min(0f)] private float _distance = Mathf.Infinity;
+    [SerializeField, Min(0f)] private int _shotCount = 1;
 
-    public void ShootRifle()
+    [Header("Spread")]
+    [SerializeField] private bool _useSpread;
+    [SerializeField, Min(0f)] private float _spreadFactor = 1f;
+
+    public void Shoot()
     {
-        GameObject bullet = Instantiate(_bulletPrefab, _bulletSpawnPoint.position, _bulletSpawnPoint.rotation);
-        bullet.GetComponent<Rigidbody>().velocity = transform.forward * DamageConfig.ProjectileSpeed;
-        Destroy(bullet, 1.5f);
-    }
-
-    public void ShootShotGun()
-    {
-        for (int i = 0; i < DamageConfig.BulletsAmount; i++)
+        for (int i = 0; i < _shotCount; i++)
         {
-            GameObject bullet = Instantiate(_bulletPrefab, _bulletSpawnPoint.position, _bulletSpawnPoint.rotation);
-
-            Vector3 dir = transform.forward + new Vector3(Random.Range(DamageConfig.HorizontalBulletsSpread, DamageConfig.HorizontalBulletsSpread),
-                Random.Range(-DamageConfig.VerticalBulletsSpread, DamageConfig.VerticalBulletsSpread), 0);
-            
-            bullet.GetComponent<Rigidbody>().AddForce(dir * DamageConfig.ProjectileSpeed, ForceMode.Impulse);
+            Attack();
+            Debug.Log("Shoot");
         }
     }
+
+    private void Attack()
+    {
+        var direction = _useSpread ? transform.forward + CalculateSpread() : transform.forward;
+        var ray = new Ray(transform.position, direction);
+
+        if (Physics.Raycast(ray, out RaycastHit hitInfo, _distance, _layerMask))
+        {
+            var hitCollider = hitInfo.collider;
+
+            if (hitCollider.TryGetComponent(out VitalitySystem vitalitySystem))
+            {
+                vitalitySystem.TakeDamage(_damage);
+                Debug.Log("Attack");
+            }
+        }
+    }
+
+    private Vector3 CalculateSpread()
+    {
+        return new Vector3
+        {
+            x = Random.Range(-_spreadFactor, _spreadFactor),
+            y = Random.Range(-_spreadFactor, _spreadFactor),
+            z = 0
+        };
+    }
+
+#if UNITY_EDITOR
+    private void OnDrawGizmosSelected()
+    {
+        var ray = new Ray(transform.position, transform.forward);
+
+        if (Physics.Raycast(ray, out var hitInfo, _distance, _layerMask))
+        {
+            DrawRay(ray, hitInfo.point, hitInfo.distance, Color.red);
+        }
+        else
+        {
+            var hitPosition = ray.origin + ray.direction * _distance;
+            DrawRay(ray, hitPosition, _distance, Color.green);
+        }
+    }
+
+    private static void DrawRay(Ray ray, Vector3 hitPosition, float distance, Color color)
+    {
+        const float hitPointRadius = 0.15f;
+
+        Debug.DrawRay(ray.origin, ray.direction * distance, color);
+
+        Gizmos.color = color;
+        Gizmos.DrawSphere(hitPosition, hitPointRadius);
+    }
 }
+#endif

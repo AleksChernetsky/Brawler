@@ -23,12 +23,13 @@ public class AttackState : BaseState
         }
         else
         {
-            _enemyTracker.target = null;
+            
             _stateMachine.SwitchState(_enemy.SearchState);
         }
     }
     public override void ExitState()
     {
-
+        _enemyTracker.target = null;
+        _enemyTracker.DistanceToEnemy = float.MaxValue;
     }
 }

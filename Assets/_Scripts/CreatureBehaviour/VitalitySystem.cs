@@ -3,16 +3,16 @@ using UnityEngine;
 
 public class VitalitySystem : MonoBehaviour, IDamageable
 {
-    public static event Action<VitalitySystem> OnEnemyKilled;
-    [field: SerializeField] public int MaxHealth { get ; set; }
-    [field: SerializeField] public int CurrentHealth { get; set; }
+    //public static event Action<VitalitySystem> OnEnemyKilled;
+    [field: SerializeField] public float MaxHealth { get ; set; }
+    [field: SerializeField] public float CurrentHealth { get; set; }
 
     private void Start()
     {
         CurrentHealth = MaxHealth;
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         CurrentHealth -= damage;
 
@@ -24,7 +24,7 @@ public class VitalitySystem : MonoBehaviour, IDamageable
 
     public void Die()
     {
-        OnEnemyKilled?.Invoke(this);
+        //OnEnemyKilled?.Invoke(this);
         Destroy(gameObject);        
     }
 }

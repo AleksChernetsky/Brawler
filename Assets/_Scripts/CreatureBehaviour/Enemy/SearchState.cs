@@ -6,7 +6,7 @@ public class SearchState : BaseState
 
     public override void EnterState()
     {
-        Debug.Log("Enter Search State");
+        Debug.Log("Enter Search State");        
     }
     public override void UpdateState()
     {

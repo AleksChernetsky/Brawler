@@ -56,7 +56,8 @@ public class PlayerBehaviour : MonoBehaviour
         {
             transform.eulerAngles = new Vector3(transform.eulerAngles.x, _shootDirection.eulerAngles.y, transform.eulerAngles.z);
             _animHandler.PlayAttackAnimation();
-            _weapon.ShootShotGun();
+            //_weapon.ShootRifle();
+            _weapon.Shoot();
             ReloadTime = 0;
         }
     }
