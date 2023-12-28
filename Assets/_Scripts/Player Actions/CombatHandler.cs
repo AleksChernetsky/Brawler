@@ -1,40 +1,14 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem.EnhancedTouch;
-using UnityEngine.UIElements;
-
 using ETouch = UnityEngine.InputSystem.EnhancedTouch;
 
-public class PlayerCombatActions : MonoBehaviour
+public class CombatHandler : JoystickHandler
 {
     [SerializeField] private GameObject _shootDirection;
     [SerializeField] protected Weapon _weapon;
-
-    private Vector2 JoystickSize = new Vector2(200, 200);
-    private Finger CombatFinger;
-    private Vector2 AimDirection;
-
     public CombatJoystick Joystick;
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    private void OnEnable()
-    {
-        EnhancedTouchSupport.Enable();
-        ETouch.Touch.onFingerDown += HandleFingerDown;
-        ETouch.Touch.onFingerUp += HandleFingerUp;
-        ETouch.Touch.onFingerMove += HandleFingerMove;
-    }
-    private void OnDisable()
-    {
-        ETouch.Touch.onFingerDown -= HandleFingerDown;
-        ETouch.Touch.onFingerUp -= HandleFingerUp;
-        ETouch.Touch.onFingerMove -= HandleFingerMove;
-        EnhancedTouchSupport.Disable();
-    }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    private void HandleFingerDown(Finger touchedFinger)
+    protected override void HandleFingerDown(Finger touchedFinger)
     {
         if (CombatFinger == null && touchedFinger.screenPosition.x >= Screen.width / 2)
         {
@@ -45,7 +19,7 @@ public class PlayerCombatActions : MonoBehaviour
             _shootDirection.SetActive(true);
         }
     }
-    private void HandleFingerMove(Finger movedFinger)
+    protected override void HandleFingerMove(Finger movedFinger)
     {
         if (movedFinger == CombatFinger)
         {
@@ -63,7 +37,7 @@ public class PlayerCombatActions : MonoBehaviour
             AimDirection = knobPosition / maxKnobMovement;
         }
     }
-    private void HandleFingerUp(Finger lostFinger)
+    protected override void HandleFingerUp(Finger lostFinger)
     {
         if (lostFinger == CombatFinger)
         {
@@ -74,27 +48,6 @@ public class PlayerCombatActions : MonoBehaviour
             AimDirection = Vector2.zero;
             _shootDirection.SetActive(false);
         }
-    }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    private Vector2 ClampStartPosition(Vector2 startPosition)
-    {
-        if (startPosition.x < JoystickSize.x / 2)
-        {
-            startPosition.x = JoystickSize.x / 2;
-        }
-
-        if (startPosition.y < JoystickSize.y / 2)
-        {
-            startPosition.y = JoystickSize.y / 2;
-        }
-        else if (startPosition.y > Screen.height - JoystickSize.y / 2)
-        {
-            startPosition.y = Screen.height - JoystickSize.y / 2;
-        }
-
-        return startPosition;
     }
     private void VisualShootDirection(Vector3 shootDirection)
     {

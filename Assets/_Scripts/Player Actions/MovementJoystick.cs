@@ -6,7 +6,7 @@ public class MovementJoystick : MonoBehaviour
     [HideInInspector] public RectTransform MovementJoystickBG;
     public RectTransform MovementJoystickKnob;
 
-    private void Start()
+    private void Awake()
     {
         MovementJoystickBG = GetComponent<RectTransform>();
         MovementJoystickBGStartPosition = MovementJoystickBG.anchoredPosition;

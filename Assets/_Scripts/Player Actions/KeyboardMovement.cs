@@ -3,7 +3,7 @@ using UnityEngine;
 public class KeyboardMovement : MonoBehaviour
 {
     private Rigidbody _rigidBody;
-    private PlayerMovement _playerMovement;
+    private MovementHandler _movementHandler;
     private Animator _animHandler;
     private float _moveSpeed;
     private float currentSpeed;
@@ -11,9 +11,9 @@ public class KeyboardMovement : MonoBehaviour
     private void Start()
     {
         _rigidBody = GetComponent<Rigidbody>();
-        _playerMovement = GetComponent<PlayerMovement>();
+        _movementHandler = GetComponent<MovementHandler>();
         _animHandler = GetComponent<Animator>();
-        _moveSpeed = _playerMovement.MoveSpeed;
+        _moveSpeed = _movementHandler.MoveSpeed;
     }
 
     private void FixedUpdate()

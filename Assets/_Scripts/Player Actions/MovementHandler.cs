@@ -1,49 +1,18 @@
-using UnityEngine;
-using UnityEngine.AI;
-using UnityEngine.EventSystems;
+﻿using UnityEngine;
 using UnityEngine.InputSystem.EnhancedTouch;
-using UnityEngine.UI;
-
 using ETouch = UnityEngine.InputSystem.EnhancedTouch;
 
-public class PlayerMovement : MonoBehaviour
+public class MovementHandler : JoystickHandler
 {
     public float MoveSpeed;
-
-    private Vector2 JoystickSize = new Vector2(200, 200);
-    private Finger MovementFinger;
-    private Vector2 MovementDirection;
-    private Rigidbody _rigidBody;
-
     public MovementJoystick Joystick;
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    private Rigidbody _rigidBody;
 
     private void Start()
     {
         _rigidBody = GetComponent<Rigidbody>();
     }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    private void OnEnable()
-    {
-        EnhancedTouchSupport.Enable();
-        ETouch.Touch.onFingerDown += HandleFingerDown;
-        ETouch.Touch.onFingerUp += HandleFingerUp;
-        ETouch.Touch.onFingerMove += HandleFingerMove;
-    }
-    private void OnDisable()
-    {
-        ETouch.Touch.onFingerDown -= HandleFingerDown;
-        ETouch.Touch.onFingerUp -= HandleFingerUp;
-        ETouch.Touch.onFingerMove -= HandleFingerMove;
-        EnhancedTouchSupport.Disable();
-    }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    private void HandleFingerDown(Finger touchedFinger)
+    protected override void HandleFingerDown(Finger touchedFinger)
     {
         if (MovementFinger == null && touchedFinger.screenPosition.x <= Screen.width / 2)
         {
@@ -53,7 +22,7 @@ public class PlayerMovement : MonoBehaviour
             Joystick.MovementJoystickBG.anchoredPosition = ClampStartPosition(touchedFinger.screenPosition);
         }
     }
-    private void HandleFingerMove(Finger movedFinger)
+    protected override void HandleFingerMove(Finger movedFinger)
     {
         if (movedFinger == MovementFinger)
         {
@@ -75,7 +44,7 @@ public class PlayerMovement : MonoBehaviour
             MoveCharacter();
         }
     }
-    private void HandleFingerUp(Finger lostFinger)
+    protected override void HandleFingerUp(Finger lostFinger)
     {
         if (lostFinger == MovementFinger)
         {
@@ -84,28 +53,7 @@ public class PlayerMovement : MonoBehaviour
             Joystick.MovementJoystickKnob.anchoredPosition = Vector2.zero;
             MovementDirection = Vector2.zero;
         }
-    }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    private Vector2 ClampStartPosition(Vector2 startPosition)
-    {
-        if (startPosition.x < JoystickSize.x / 2)
-        {
-            startPosition.x = JoystickSize.x / 2;
-        }
-
-        if (startPosition.y < JoystickSize.y / 2)
-        {
-            startPosition.y = JoystickSize.y / 2;
-        }
-        else if (startPosition.y > Screen.height - JoystickSize.y / 2)
-        {
-            startPosition.y = Screen.height - JoystickSize.y / 2;
-        }
-
-        return startPosition;
-    }
+    }    
     private void MoveCharacter()
     {
         var direction = new Vector3(MovementDirection.x, 0, MovementDirection.y);
