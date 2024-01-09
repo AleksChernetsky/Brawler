@@ -8,6 +8,8 @@ public abstract class JoystickHandler : MonoBehaviour
     protected Finger MovementFinger, CombatFinger;
     protected Vector2 MovementDirection, AimDirection;
 
+    protected static bool IsAiming;
+
     protected void OnEnable()
     {
         EnhancedTouchSupport.Enable();

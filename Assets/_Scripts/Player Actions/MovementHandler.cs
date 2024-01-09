@@ -1,25 +1,40 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem.EnhancedTouch;
+
 using ETouch = UnityEngine.InputSystem.EnhancedTouch;
 
 public class MovementHandler : JoystickHandler
 {
-    public float MoveSpeed;
-    public MovementJoystick Joystick;
-    private Rigidbody _rigidBody;
+    [SerializeField] private RectTransform _movementJoystickBG;
+    [SerializeField] private RectTransform _movementJoystickKnob;
 
-    private void Start()
+    private Rigidbody _rigidBody;
+    private Vector2 _movementJoystickBGStartPosition;
+
+    public float MoveSpeed;
+
+    private void Awake()
     {
         _rigidBody = GetComponent<Rigidbody>();
+        _movementJoystickBGStartPosition = _movementJoystickBG.anchoredPosition;
     }
+
+    private void Update()
+    {
+        if (MovementFinger != null && IsAiming == false)
+        {
+            MoveCharacter();
+        }
+    }
+
     protected override void HandleFingerDown(Finger touchedFinger)
     {
         if (MovementFinger == null && touchedFinger.screenPosition.x <= Screen.width / 2)
         {
             MovementFinger = touchedFinger;
             MovementDirection = Vector2.zero;
-            Joystick.MovementJoystickBG.sizeDelta = JoystickSize;
-            Joystick.MovementJoystickBG.anchoredPosition = ClampStartPosition(touchedFinger.screenPosition);
+            _movementJoystickBG.sizeDelta = JoystickSize;
+            _movementJoystickBG.anchoredPosition = ClampStartPosition(touchedFinger.screenPosition);
         }
     }
     protected override void HandleFingerMove(Finger movedFinger)
@@ -30,18 +45,13 @@ public class MovementHandler : JoystickHandler
             float maxKnobMovement = JoystickSize.x / 2f;
             ETouch.Touch currentTouch = movedFinger.currentTouch;
 
-            if (Vector2.Distance(currentTouch.screenPosition, Joystick.MovementJoystickBG.anchoredPosition) > maxKnobMovement)
-            {
-                knobPosition = (currentTouch.screenPosition - Joystick.MovementJoystickBG.anchoredPosition).normalized * maxKnobMovement;
-            }
+            if (Vector2.Distance(currentTouch.screenPosition, _movementJoystickBG.anchoredPosition) > maxKnobMovement)
+                knobPosition = (currentTouch.screenPosition - _movementJoystickBG.anchoredPosition).normalized * maxKnobMovement;
             else
-            {
-                knobPosition = currentTouch.screenPosition - Joystick.MovementJoystickBG.anchoredPosition;
-            }
+                knobPosition = currentTouch.screenPosition - _movementJoystickBG.anchoredPosition;
 
-            Joystick.MovementJoystickKnob.anchoredPosition = knobPosition;
+            _movementJoystickKnob.anchoredPosition = knobPosition;
             MovementDirection = knobPosition / maxKnobMovement;
-            MoveCharacter();
         }
     }
     protected override void HandleFingerUp(Finger lostFinger)
@@ -49,11 +59,12 @@ public class MovementHandler : JoystickHandler
         if (lostFinger == MovementFinger)
         {
             MovementFinger = null;
-            Joystick.MovementJoystickBG.position = Joystick.MovementJoystickBGStartPosition;
-            Joystick.MovementJoystickKnob.anchoredPosition = Vector2.zero;
+            _movementJoystickBG.position = _movementJoystickBGStartPosition;
+            _movementJoystickKnob.anchoredPosition = Vector2.zero;
             MovementDirection = Vector2.zero;
         }
-    }    
+    }
+
     private void MoveCharacter()
     {
         var direction = new Vector3(MovementDirection.x, 0, MovementDirection.y);

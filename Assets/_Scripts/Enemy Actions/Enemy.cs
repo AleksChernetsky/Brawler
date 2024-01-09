@@ -44,25 +44,21 @@ public class Enemy : MonoBehaviour
         StateMachine.CurrentState.UpdateState();
     }
 
-    // -----------------------------------------------------------------------------------------------------------------    
+    // -----------------------------------------------------------------------------------------------------------------
 
     public void EnemySearch()
     {
         _agent.isStopped = false;
-
         _agent.destination = _patrolPoints[_currentPatrolPoint].transform.position;
 
         if (_agent.remainingDistance < _distanceToChangePatrolPoint)
             _currentPatrolPoint = Random.Range(0, _patrolPoints.Length);
     }
-
     public void EnemyChase()
     {
         _agent.isStopped = false;
-
         _agent.destination = _enemyTracker.target.transform.position;
     }
-
     public void Attack()
     {
         _animHandler.PlayAttackAnimation();

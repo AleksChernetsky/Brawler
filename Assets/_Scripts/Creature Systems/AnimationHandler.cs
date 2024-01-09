@@ -3,13 +3,13 @@ using UnityEngine;
 public class AnimationHandler : MonoBehaviour
 {
     private Animator _animator;
-    private Rigidbody _rigidBody;
-    private float speed;
+    private Vector3 _previousPosition;
+    private float _speed;
+    public float SpeedLerp;
 
     private void Start()
     {
         _animator = GetComponent<Animator>();
-        _rigidBody = GetComponent<Rigidbody>();
     }
 
     private void FixedUpdate()
@@ -19,12 +19,15 @@ public class AnimationHandler : MonoBehaviour
 
     public void UpdateMovement()
     {
-        speed = _rigidBody.velocity.magnitude;
-        _animator.SetFloat("Speed", speed);
+        _speed = Mathf.Lerp(_speed, (transform.position - _previousPosition).magnitude / Time.deltaTime, SpeedLerp);
+        _previousPosition = transform.position;
+
+        _animator.SetFloat("Speed", _speed);
+        StopAttackAnimation();
     }
 
-    public void PlayAttackAnimation()
-    {
-        _animator.SetTrigger("Shoot");
-    }
+    public void PlayAttackAnimation() => _animator.SetBool("Shoot", true);
+    public void StopAttackAnimation() => _animator.SetBool("Shoot", false); // set event in attack animation on last frame
+    public void PlayAimingAnimation() => _animator.SetBool("Aiming", true);
+    public void StopAimingAnimation() => _animator.SetBool("Aiming", false);
 }

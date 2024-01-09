@@ -1,21 +1,42 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem.EnhancedTouch;
+
 using ETouch = UnityEngine.InputSystem.EnhancedTouch;
 
 public class CombatHandler : JoystickHandler
 {
+    [SerializeField] private RectTransform _combatJoystickBG;
+    [SerializeField] private RectTransform _combatJoystickKnob;
     [SerializeField] private GameObject _shootDirection;
-    [SerializeField] protected Weapon _weapon;
-    public CombatJoystick Joystick;
+    [SerializeField] private Weapon _weapon;
+
+    private AnimationHandler _animationHandler;
+    private Vector2 _combatJoystickBGStartPosition;
+
+    private void Awake()
+    {
+        _animationHandler = GetComponent<AnimationHandler>();
+        _combatJoystickBGStartPosition = _combatJoystickBG.anchoredPosition;
+    }
+    private void Update()
+    {
+        if (CombatFinger != null)
+        {
+            RotateToShoot();
+        }
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
 
     protected override void HandleFingerDown(Finger touchedFinger)
     {
         if (CombatFinger == null && touchedFinger.screenPosition.x >= Screen.width / 2)
         {
+            IsAiming = true;
             CombatFinger = touchedFinger;
             AimDirection = Vector2.zero;
-            Joystick.CombatJoystickBG.sizeDelta = JoystickSize;
-            Joystick.CombatJoystickBG.anchoredPosition = ClampStartPosition(touchedFinger.screenPosition);
+            _combatJoystickBG.sizeDelta = JoystickSize;
+            _combatJoystickBG.anchoredPosition = ClampStartPosition(touchedFinger.screenPosition);
             _shootDirection.SetActive(true);
         }
     }
@@ -27,13 +48,12 @@ public class CombatHandler : JoystickHandler
             float maxKnobMovement = JoystickSize.x / 2f;
             ETouch.Touch currentTouch = movedFinger.currentTouch;
 
-            if (Vector2.Distance(currentTouch.screenPosition, Joystick.CombatJoystickBG.anchoredPosition) > maxKnobMovement)
-                knobPosition = (currentTouch.screenPosition - Joystick.CombatJoystickBG.anchoredPosition).normalized * maxKnobMovement;
+            if (Vector2.Distance(currentTouch.screenPosition, _combatJoystickBG.anchoredPosition) > maxKnobMovement)
+                knobPosition = (currentTouch.screenPosition - _combatJoystickBG.anchoredPosition).normalized * maxKnobMovement;
             else
-                knobPosition = currentTouch.screenPosition - Joystick.CombatJoystickBG.anchoredPosition;
+                knobPosition = currentTouch.screenPosition - _combatJoystickBG.anchoredPosition;
 
-            VisualShootDirection(new Vector3(knobPosition.x, 0, knobPosition.y));
-            Joystick.CombatJoystickKnob.anchoredPosition = knobPosition;
+            _combatJoystickKnob.anchoredPosition = knobPosition;
             AimDirection = knobPosition / maxKnobMovement;
         }
     }
@@ -41,25 +61,28 @@ public class CombatHandler : JoystickHandler
     {
         if (lostFinger == CombatFinger)
         {
+            Shoot();
+            IsAiming = false;
             CombatFinger = null;
-            Joystick.CombatJoystickBG.position = Joystick.CombatJoystickBGStartPosition;
-            Joystick.CombatJoystickKnob.anchoredPosition = Vector2.zero;
-            ShootDirection();
+            _combatJoystickBG.position = _combatJoystickBGStartPosition;
+            _combatJoystickKnob.anchoredPosition = Vector2.zero;
             AimDirection = Vector2.zero;
             _shootDirection.SetActive(false);
         }
     }
-    private void VisualShootDirection(Vector3 shootDirection)
-    {
-        if (Vector3.Angle(_shootDirection.transform.forward, shootDirection) > 0)
-        {
-            _shootDirection.transform.eulerAngles = new Vector3(90, 0, Mathf.Atan2(shootDirection.x, shootDirection.z) * -180 / Mathf.PI);
-        }
-    }
-    public void ShootDirection()
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    public void RotateToShoot()
     {
         var direction = new Vector3(AimDirection.x, 0, AimDirection.y).normalized;
-        transform.rotation = Quaternion.LookRotation(direction);
+        transform.LookAt(transform.position + direction, Vector3.up);
+        _animationHandler.PlayAimingAnimation();
+    }
+    private void Shoot()
+    {
         _weapon.Shoot();
+        _animationHandler.StopAimingAnimation();
+        _animationHandler.PlayAttackAnimation();
     }
 }

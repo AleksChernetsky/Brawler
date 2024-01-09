@@ -13,21 +13,19 @@ public class Weapon : MonoBehaviour
     public void Shoot()
     {
         _weaponMuzzle.Rotate(new Vector3(0, -_spreadFactor, 0));
-
         for (int i = 0; i < _projectileCount; i++)
         {
             _weaponMuzzle.Rotate(new Vector3(0, _spreadFactor / (_projectileCount / 2), 0));
             GameObject bullet = ObjectPool.Instance.GetFreeElement();
+
             if (bullet != null)
             {
                 bullet.transform.SetPositionAndRotation(_weaponMuzzle.position, _weaponMuzzle.rotation);
                 bullet.SetActive(true);
                 bullet.TryGetComponent(out Projectile projectile);
-
                 projectile.RigidBody.AddForce(_weaponMuzzle.transform.forward * Random.Range(_force, _force * _forceRandomFactor), _forceMode);
             }
         }
-
         _weaponMuzzle.Rotate(new Vector3(0, -_spreadFactor, 0));
     }
 }
