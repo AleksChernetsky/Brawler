@@ -33,7 +33,6 @@ public class MovementHandler : JoystickHandler
         {
             MovementFinger = touchedFinger;
             MovementDirection = Vector2.zero;
-            _movementJoystickBG.sizeDelta = JoystickSize;
             _movementJoystickBG.anchoredPosition = ClampStartPosition(touchedFinger.screenPosition);
         }
     }

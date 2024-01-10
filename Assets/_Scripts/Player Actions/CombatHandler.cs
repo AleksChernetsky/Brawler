@@ -35,7 +35,6 @@ public class CombatHandler : JoystickHandler
             IsAiming = true;
             CombatFinger = touchedFinger;
             AimDirection = Vector2.zero;
-            _combatJoystickBG.sizeDelta = JoystickSize;
             _combatJoystickBG.anchoredPosition = ClampStartPosition(touchedFinger.screenPosition);
             _shootDirection.SetActive(true);
         }
