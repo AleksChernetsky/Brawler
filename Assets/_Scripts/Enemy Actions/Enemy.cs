@@ -14,39 +14,21 @@ public class Enemy : MonoBehaviour
     private float ReloadTime;
     public float FireRate;
 
-    public StateMachine StateMachine { get; set; }
-    public ChaseState ChaseState { get; set; }
-    public AttackState AttackState { get; set; }
-    public SearchState SearchState { get; set; }
-
     private void Awake()
     {
         _enemyTracker = GetComponent<EnemyTracker>();
         _animHandler = GetComponent<AnimationHandler>();
-
-        StateMachine = new StateMachine();
-
-        ChaseState = new ChaseState(this, StateMachine, _enemyTracker);
-        AttackState = new AttackState(this, StateMachine, _enemyTracker);
-        SearchState = new SearchState(this, StateMachine, _enemyTracker);
     }
 
     private void Start()
     {
         _agent = GetComponent<NavMeshAgent>();
         _patrolPoints = GameObject.FindGameObjectsWithTag("PatrolPoint");
-
-        StateMachine.Initialize(SearchState);
-    }
-
-    private void Update()
-    {
-        StateMachine.CurrentState.UpdateState();
     }
 
     // -----------------------------------------------------------------------------------------------------------------
 
-    public void EnemySearch()
+    public void SearchEnemy()
     {
         _agent.isStopped = false;
         _agent.destination = _patrolPoints[_currentPatrolPoint].transform.position;
@@ -54,23 +36,22 @@ public class Enemy : MonoBehaviour
         if (_agent.remainingDistance < _distanceToChangePatrolPoint)
             _currentPatrolPoint = Random.Range(0, _patrolPoints.Length);
     }
-    public void EnemyChase()
+    public void ChaseEnemy()
     {
-        _agent.isStopped = false;
-        _agent.destination = _enemyTracker.target.transform.position;
+        //_agent.isStopped = false;
+        //_agent.destination = _enemyTracker.target[0].position;
     }
     public void Attack()
     {
-        _animHandler.PlayAttackAnimation();
+        //_agent.isStopped = true;
+        //ReloadTime += Time.deltaTime;
+        //_agent.transform.LookAt(_enemyTracker.target[0].position);
 
-        _agent.isStopped = true;
-        ReloadTime += Time.deltaTime;
-        _agent.transform.LookAt(_enemyTracker.target.transform.position);
-
-        if (ReloadTime >= FireRate)
-        {
-            _weapon.Shoot();
-            ReloadTime = 0;
-        }
+        //if (ReloadTime >= FireRate)
+        //{
+        //    _weapon.Shoot();
+        //    _animHandler.PlayAttackAnimation();
+        //    ReloadTime = 0;
+        //}
     }
 }

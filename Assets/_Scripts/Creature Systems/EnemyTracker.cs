@@ -3,73 +3,79 @@ using UnityEngine.AI;
 
 public class EnemyTracker : MonoBehaviour
 {
-    [SerializeField] private LayerMask layermask;
-    [SerializeField] private float checkRadius;
-
+    private float DistanceToTarget;
     private Collider[] enemyColliders;
 
+    [Header("Enemy Check Values")]
+    [SerializeField] private LayerMask layermask;
+    [SerializeField] private float _distanceToCheck;
+    [SerializeField] private float _distanceToChase;
+    [SerializeField] private float _distanceToRangeAttack;
+    //[SerializeField] private float _distanceToMeleeAttack;
+
+    [Header("Enemy Values")]
+    public GameObject Enemy;
+    public float DistanceToEnemy;
     public bool IsBlocked;
-    public float DistanceToEnemy, DetectDistance, AttackDistance;
 
-    public Transform target;
+    public float DistanceToCheck { get => _distanceToCheck; set => _distanceToCheck = value; }
+    public float DistanceToChase { get => _distanceToChase; set => _distanceToChase = value; }
+    public float DistanceToAttack { get => _distanceToRangeAttack; set => _distanceToRangeAttack = value; }
 
-    void OnDrawGizmosSelected()
+    private void OnDrawGizmos()
     {
-        if (target == null) Gizmos.color = Color.white;
+        if (Enemy == null) Gizmos.color = Color.white;
         else Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, checkRadius);
+
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, DistanceToCheck);
+
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, DistanceToChase);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, DistanceToAttack);
     }
 
-    private void Start()
+    private void Awake()
     {
-        DistanceToEnemy = float.MaxValue;
-        target = null;
+        DistanceToEnemy = Mathf.Infinity;
     }
-
-    //private void HandleEnemyDefeated(VitalitySystem enemy)
-    //{
-
-    //}
 
     private void Update()
     {
-        enemyColliders = Physics.OverlapSphere(transform.position, checkRadius, layermask);
+        enemyColliders = Physics.OverlapSphere(transform.position, DistanceToCheck, layermask);
+        Enemy = NearestObject();
+        EnemyBlocked();
+    }
 
-        foreach (var enemies in enemyColliders)
+    private GameObject NearestObject()
+    {
+        DistanceToEnemy = Mathf.Infinity;
+        GameObject target = null;
+
+        for (var i = 0; i < enemyColliders.Length; i++)
         {
-            if (enemies.transform != transform)
+            DistanceToTarget = Vector3.Distance(transform.position, enemyColliders[i].transform.position);
+            if (DistanceToTarget < DistanceToEnemy && DistanceToTarget > 0)
             {
-                DistanceToEnemy = (transform.position - enemies.transform.position).sqrMagnitude;
-
-                if (DistanceToEnemy <= DetectDistance)
-                {
-                    target = enemies.transform;
-                    EnemyBlocked();
-                }
-                else
-                {
-                    target = null;
-                    DistanceToEnemy = float.MaxValue;
-                }
+                DistanceToEnemy = DistanceToTarget;
+                target = enemyColliders[i].gameObject;
             }
         }
+        return target;
     }
 
     private void EnemyBlocked()
     {
         NavMeshHit hit;
-
-        IsBlocked = NavMesh.Raycast(transform.position, target.transform.position, out hit, NavMesh.AllAreas);
-        Debug.DrawLine(transform.position, target.transform.position, IsBlocked ? Color.red : Color.green);
-
-        if (IsBlocked)
+        if (Enemy != null)
         {
-            Debug.DrawRay(hit.position, Vector3.up, Color.yellow);
-            IsBlocked = true;
-        }
-        else
-        {
-            IsBlocked = false;
+            IsBlocked = NavMesh.Raycast(transform.position, Enemy.transform.position, out hit, NavMesh.AllAreas);
+            Debug.DrawLine(transform.position, Enemy.transform.position, IsBlocked ? Color.red : Color.green);
+
+            if (IsBlocked)
+                Debug.DrawRay(hit.position, Vector3.up, Color.yellow);
         }
     }
 }
