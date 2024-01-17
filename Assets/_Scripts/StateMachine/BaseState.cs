@@ -1,9 +1,9 @@
-public class State
+public class BaseState
 {
     protected EnemyActions _enemyActions;
     protected StateMachine _stateMachine;
 
-    public State(EnemyActions enemyActions, StateMachine stateMachine)
+    public BaseState(EnemyActions enemyActions, StateMachine stateMachine)
     {
         _enemyActions = enemyActions;
         _stateMachine = stateMachine;

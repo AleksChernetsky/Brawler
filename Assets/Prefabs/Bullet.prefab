@@ -146,6 +146,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dd2ff973248572409e6d67f630ffcdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 1
   _projectileRigidbody: {fileID: 5814617330654019201}
   DestroyTime: 0.5
+  weaponValues: {fileID: 11400000, guid: db062469603bc4b4aa521c2fa4f34b74, type: 2}

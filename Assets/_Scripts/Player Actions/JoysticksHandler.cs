@@ -10,8 +10,8 @@ public class JoysticksHandler : MonoBehaviour
     [SerializeField] private RectTransform _movementJoystickBackGround;
     [SerializeField] private RectTransform _combatJoystickBackGround;
     [SerializeField] private GameObject _shootDirection;
-    [SerializeField] private Weapon _weapon;
 
+    private IWeapon _weapon;
     private Vector2 _movementJoystickStartPosition;
     private Vector2 _combatJoystickStartPosition;
 
@@ -25,6 +25,7 @@ public class JoysticksHandler : MonoBehaviour
     {
         _rigidBody = GetComponent<Rigidbody>();
         _animationHandler = GetComponent<AnimationHandler>();
+        _weapon = GetComponent<IWeapon>();
 
         _joystick = new Joystick();
         _joystick.Enable();

@@ -3,13 +3,13 @@
 [RequireComponent(typeof(Rigidbody))]
 public class Projectile : MonoBehaviour
 {
-    [SerializeField, Min(0f)] private float _damage;
     [SerializeField] private Rigidbody _projectileRigidbody;
     private float _timer;
 
     public Rigidbody RigidBody => _projectileRigidbody;
-    public float Damage => _damage;
     public float DestroyTime = 3;
+
+    public float Damage;
 
     private void FixedUpdate()
     {

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class AttackState : State
+public class AttackState : BaseState
 {
     public AttackState(EnemyActions enemyActions, StateMachine stateMachine) : base(enemyActions, stateMachine) { }
 

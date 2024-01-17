@@ -3,8 +3,7 @@ using UnityEngine.AI;
 
 public class EnemyActions : MonoBehaviour
 {
-    [SerializeField] protected Weapon _weapon;
-
+    private IWeapon _weapon;
     private EnemyTracker _enemyTracker;
     private AnimationHandler _animHandler;
     private NavMeshAgent _agent;
@@ -33,6 +32,7 @@ public class EnemyActions : MonoBehaviour
         _enemyTracker = GetComponent<EnemyTracker>();
         _animHandler = GetComponent<AnimationHandler>();
         _agent = GetComponent<NavMeshAgent>();
+        _weapon = GetComponent<IWeapon>();
     }
     private void Start()
     {
@@ -51,7 +51,6 @@ public class EnemyActions : MonoBehaviour
         {
             _agent.SetDestination(PatrolArea.Instance.GetRandomPoint());
         }
-
     }
     public void EnemyChase()
     {

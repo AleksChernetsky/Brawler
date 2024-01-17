@@ -10,6 +10,7 @@ public class AnimationHandler : MonoBehaviour
     private void Start()
     {
         _animator = GetComponent<Animator>();
+        _speed = 0;
     }
 
     private void FixedUpdate()

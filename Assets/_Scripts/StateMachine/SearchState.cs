@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class SearchState : State
+public class SearchState : BaseState
 {
     public SearchState(EnemyActions enemyActions, StateMachine stateMachine) : base(enemyActions, stateMachine) { }
 
