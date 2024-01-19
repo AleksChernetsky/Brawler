@@ -3,6 +3,7 @@ using UnityEngine.AI;
 
 public class EnemyTracker : MonoBehaviour
 {
+    private float _checkCollidersDelay;
     private float DistanceToTarget;
     private Collider[] enemyColliders;
 
@@ -14,7 +15,7 @@ public class EnemyTracker : MonoBehaviour
     //[SerializeField] private float _distanceToMeleeAttack;
 
     [Header("Enemy Values")]
-    public GameObject Enemy;
+    public Transform Enemy;
     public float DistanceToEnemy;
     public bool IsBlocked;
 
@@ -41,18 +42,28 @@ public class EnemyTracker : MonoBehaviour
     {
         DistanceToEnemy = Mathf.Infinity;
     }
-
+    
     private void Update()
     {
-        enemyColliders = Physics.OverlapSphere(transform.position, DistanceToCheck, layermask);
-        Enemy = NearestObject();
-        EnemyBlocked();
+        GetTarget();
     }
 
-    private GameObject NearestObject()
+    private void GetTarget()
+    {
+        _checkCollidersDelay += Time.deltaTime;
+        if (_checkCollidersDelay >= 0.5f)
+        {
+            enemyColliders = Physics.OverlapSphere(transform.position, DistanceToCheck, layermask);
+            _checkCollidersDelay = 0;
+            Enemy = NearestObject();
+            EnemyBlocked();
+        }
+    }
+
+    private Transform NearestObject()
     {
         DistanceToEnemy = Mathf.Infinity;
-        GameObject target = null;
+        Transform target = null;
 
         for (var i = 0; i < enemyColliders.Length; i++)
         {
@@ -60,7 +71,7 @@ public class EnemyTracker : MonoBehaviour
             if (DistanceToTarget < DistanceToEnemy && DistanceToTarget > 0)
             {
                 DistanceToEnemy = DistanceToTarget;
-                target = enemyColliders[i].gameObject;
+                target = enemyColliders[i].transform;
             }
         }
         return target;

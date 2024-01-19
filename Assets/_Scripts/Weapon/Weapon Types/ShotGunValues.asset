@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7abd2a83b74f37a45ba61f6c71064690, type: 3}
   m_Name: ShotGunValues
   m_EditorClassIdentifier: 
-  _damage: 1
+  _damage: 2
   _forceMode: 1
   _force: 10
   _forceRandomFactor: 1.4
-  _projectileCount: 15
+  _projectileNumber: 20
   _spreadFactor: 10

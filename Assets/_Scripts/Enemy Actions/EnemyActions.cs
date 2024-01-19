@@ -37,6 +37,7 @@ public class EnemyActions : MonoBehaviour
     private void Start()
     {
         StateMachine.Initialize(SearchState);
+        VitalitySystem.OnEnemyDied += EnemyDied;
     }
     private void Update()
     {
@@ -55,15 +56,14 @@ public class EnemyActions : MonoBehaviour
     public void EnemyChase()
     {
         _agent.isStopped = false;
-        _agent.SetDestination(_enemyTracker.Enemy.transform.position);
+        _agent.SetDestination(_enemyTracker.Enemy.position);
     }
     public void Attack()
     {
-        _animHandler.PlayAttackAnimation();
-
         _agent.isStopped = true;
         ReloadTime += Time.deltaTime;
-        _agent.transform.LookAt(_enemyTracker.Enemy.transform.position);
+        _animHandler.PlayFiringAnim();
+        _agent.transform.LookAt(_enemyTracker.Enemy.position);
 
         if (ReloadTime >= FireRate)
         {
@@ -72,6 +72,7 @@ public class EnemyActions : MonoBehaviour
         }
     }
 
+    private void EnemyDied() => _agent.SetDestination(PatrolArea.Instance.GetRandomPoint());
 
 #if UNITY_EDITOR
     private void OnDrawGizmos()

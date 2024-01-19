@@ -1,12 +1,11 @@
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.InputSystem.EnhancedTouch;
 
 using ETouch = UnityEngine.InputSystem.EnhancedTouch;
 
 public class JoysticksHandler : MonoBehaviour
 {
-    [SerializeField] private float _moveSpeed;
-
     [SerializeField] private RectTransform _movementJoystickBackGround;
     [SerializeField] private RectTransform _combatJoystickBackGround;
     [SerializeField] private GameObject _shootDirection;
@@ -15,16 +14,16 @@ public class JoysticksHandler : MonoBehaviour
     private Vector2 _movementJoystickStartPosition;
     private Vector2 _combatJoystickStartPosition;
 
-    private AnimationHandler _animationHandler;
+    private AnimationHandler _animHandler;
     private Joystick _joystick;
-    private Rigidbody _rigidBody;
+    private NavMeshAgent _agent;
 
-    public bool IsAiming;
+    private bool IsAiming;
 
     private void Awake()
     {
-        _rigidBody = GetComponent<Rigidbody>();
-        _animationHandler = GetComponent<AnimationHandler>();
+        _agent = GetComponent<NavMeshAgent>();
+        _animHandler = GetComponent<AnimationHandler>();
         _weapon = GetComponent<IWeapon>();
 
         _joystick = new Joystick();
@@ -92,23 +91,20 @@ public class JoysticksHandler : MonoBehaviour
     private void MoveCharacter()
     {
         var inputDirection = _joystick.GamePlay.Movement.ReadValue<Vector2>();
-        _rigidBody.velocity = new Vector3(inputDirection.x * _moveSpeed, 0, inputDirection.y * _moveSpeed);
-        transform.LookAt(transform.position + new Vector3(inputDirection.x, 0, inputDirection.y), Vector3.up);
+        var movement = new Vector3(inputDirection.x, 0, inputDirection.y);
+        _agent.destination = transform.position + movement;
     }
     public void RotateToShoot()
     {
+        _animHandler.PlayAimmingAnim();
         _shootDirection.SetActive(true);
         var inputDirection = _joystick.GamePlay.Combat.ReadValue<Vector2>();
         transform.LookAt(transform.position + new Vector3(inputDirection.x, 0, inputDirection.y), Vector3.up);
-        _animationHandler.PlayAimingAnimation();
     }
     private void Shoot()
     {
-        _animationHandler.StopAimingAnimation();
-        _animationHandler.PlayAttackAnimation();
-
         _weapon.Shoot();
-
+        _animHandler.PlayFiringAnim();
         _shootDirection.SetActive(false);
         IsAiming = false;
     }

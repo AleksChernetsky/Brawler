@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class Weapon<T> : MonoBehaviour, IWeapon where T : WeaponValues // 
+public abstract class Weapon<T> : MonoBehaviour, IWeapon where T : WeaponValues
 {
     [SerializeField] protected T _weaponValues;
     [SerializeField] protected Transform _weaponMuzzle;

@@ -1,34 +1,46 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class AnimationHandler : MonoBehaviour
 {
     private Animator _animator;
-    private Vector3 _previousPosition;
+    private NavMeshAgent _agent;
     private float _speed;
-    public float SpeedLerp;
 
     private void Start()
     {
         _animator = GetComponent<Animator>();
-        _speed = 0;
+        _agent = GetComponent<NavMeshAgent>();
+
+        VitalitySystem.OnTakingDamage += PlayTakingHitAnim;
+        VitalitySystem.OnEnemyDied += PlayDeathAnim;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         UpdateMovement();
     }
 
     public void UpdateMovement()
     {
-        _speed = Mathf.Lerp(_speed, (transform.position - _previousPosition).magnitude / Time.deltaTime, SpeedLerp);
-        _previousPosition = transform.position;
-
+        _speed = _agent.velocity.magnitude;
         _animator.SetFloat("Speed", _speed);
-        StopAttackAnimation();
     }
 
-    public void PlayAttackAnimation() => _animator.SetBool("Shoot", true);
-    public void StopAttackAnimation() => _animator.SetBool("Shoot", false); // set event in attack animation on last frame
-    public void PlayAimingAnimation() => _animator.SetBool("Aiming", true);
-    public void StopAimingAnimation() => _animator.SetBool("Aiming", false);
+    public void PlayAimmingAnim() => _animator.Play("Base Layer.Rifle Aiming Idle", 0);
+    public void PlayFiringAnim() => _animator.Play("Base Layer.Firing Rifle", 0);
+    public void PlayTakingHitAnim()
+    {
+        if (_speed >= 0.05)
+            _animator.Play("Base Layer.Hit Reaction Run", 0);
+        else
+            _animator.Play("Base Layer.Hit Reaction Idle", 0);
+    }
+    public void PlayDeathAnim()
+    {
+        if (_speed >= 0.05)
+            _animator.Play("Base Layer.Rifle Run To Dying", 0);
+        else
+            _animator.Play("Base Layer.Death From Back Headshot", 0);
+    }
 }
