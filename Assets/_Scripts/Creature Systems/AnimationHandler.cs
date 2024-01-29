@@ -5,7 +5,7 @@ public class AnimationHandler : MonoBehaviour
 {
     private Animator _animator;
     private NavMeshAgent _agent;
-    private TESTWeapon _testWeapon;
+    private RangeWeapon _testWeapon;
     private VitalitySystem _vitalitySystem;
     private float _speed;
 
@@ -14,7 +14,7 @@ public class AnimationHandler : MonoBehaviour
         _animator = GetComponent<Animator>();
         _agent = GetComponent<NavMeshAgent>();
         _vitalitySystem = GetComponent<VitalitySystem>();
-        _testWeapon = GetComponent<TESTWeapon>();
+        _testWeapon = GetComponent<RangeWeapon>();
 
         _testWeapon.OnShootEvent += PlayShootingAnim;
         //_weapon.OnFistAttack += FistAttack;

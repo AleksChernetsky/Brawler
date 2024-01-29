@@ -2,47 +2,39 @@
 
 using UnityEngine;
 
-public class TESTSMG : TESTWeapon
+public class ShotGunRifle : RangeWeapon
 {
-    [Header("Automatic Rifle values")]
-    [SerializeField] private int roundsPerBurst;
-    [SerializeField] private float lagBetweenShots;
-
-    private void Start()
-    {
-        typeOfGun = WeaponType.SMG;
-    }
     public override void Shoot()
     {
-        if (clipsLeft > 0)
+        if (ShootTimer >= fireRate)
         {
-            StartCoroutine(Burst_Fire());
-            clipsLeft--;
-            //bulletsLeft = bulletsPerClip;
+            if (clipsLeft > 0)
+            {
+                CallOnShootEvent();
+                StartCoroutine(BurstFire());
+                clipsLeft--;
+                ShootTimer = 0;
+            }
         }
-
     }
 
-    IEnumerator Burst_Fire()
+    IEnumerator BurstFire()
     {
         int shotCounter = 0;
 
-        while (shotCounter < roundsPerBurst)
+        while (shotCounter < bulletsPerShot)
         {
             isFiring = true;
             SpawnProjectile();
             shotCounter++;
-            bulletsLeft--;
-            yield return new WaitForSeconds(lagBetweenShots);
         }
-        if (bulletsLeft <= 0)
+        if (clipsLeft < numberOfClips)
         {
             StartCoroutine(ReloadWeapon());
+            isFiring = false;
             yield break;
         }
-        isFiring = false;
     }
-
     private void SpawnProjectile()
     {
         GameObject bullet = ObjectPool.Instance.GetFreeElement();

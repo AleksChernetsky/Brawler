@@ -11,7 +11,7 @@ public class JoysticksHandler : MonoBehaviour
     [SerializeField] private GameObject _shootDirection;
 
     //private IWeapon _weapon;
-    private TESTWeapon _weapon;
+    private RangeWeapon _weapon;
 
     private Vector2 _movementJoystickStartPosition;
     private Vector2 _combatJoystickStartPosition;
@@ -27,7 +27,7 @@ public class JoysticksHandler : MonoBehaviour
         _agent = GetComponent<NavMeshAgent>();
         _animHandler = GetComponent<AnimationHandler>();
         //_weapon = GetComponent<IWeapon>();
-        _weapon = GetComponent<TESTWeapon>();
+        _weapon = GetComponent<RangeWeapon>();
 
         _joystick = new Joystick();
         _joystick.Enable();

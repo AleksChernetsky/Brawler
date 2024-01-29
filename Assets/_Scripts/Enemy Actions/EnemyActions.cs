@@ -4,7 +4,7 @@ using UnityEngine.AI;
 public class EnemyActions : MonoBehaviour
 {
     //private IWeapon _weapon;
-    private TESTWeapon _TESTWeapon;
+    private RangeWeapon _TESTWeapon;
     private EnemyTracker _enemyTracker;
     private NavMeshAgent _agent;
     private VitalitySystem _vitalitySystem;
@@ -27,7 +27,7 @@ public class EnemyActions : MonoBehaviour
         AttackState = new AttackState(this, StateMachine);
 
         //_weapon = GetComponent<IWeapon>();
-        _TESTWeapon = GetComponent<TESTWeapon>();
+        _TESTWeapon = GetComponent<RangeWeapon>();
         _enemyTracker = GetComponent<EnemyTracker>();
         _agent = GetComponent<NavMeshAgent>();
         _vitalitySystem = GetComponent<VitalitySystem>();
