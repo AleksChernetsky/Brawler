@@ -2,18 +2,18 @@
 
 using UnityEngine;
 
-public class ShotGunRifle : RangeWeapon
+public class ShotGunRifle : WeaponRange
 {
     public override void Shoot()
     {
-        if (ShootTimer >= fireRate)
+        if (attackTimer >= fireRate)
         {
             if (clipsLeft > 0)
             {
                 CallOnShootEvent();
                 StartCoroutine(BurstFire());
                 clipsLeft--;
-                ShootTimer = 0;
+                attackTimer = 0;
             }
         }
     }
@@ -48,7 +48,7 @@ public class ShotGunRifle : RangeWeapon
             bullet.transform.Rotate(new Vector3(SpreadX / 2, SpreadY, 0));
             bullet.SetActive(true);
             bullet.TryGetComponent(out Projectile projectile);
-            projectile._damageInfo = _damageInfo;
+            projectile._damageInfo = damageInfo;
             projectile.RigidBody.AddForce(bullet.transform.forward * bulletSpeed, ForceMode.Impulse);
         }
     }

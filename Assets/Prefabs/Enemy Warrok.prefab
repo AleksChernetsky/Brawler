@@ -852,7 +852,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 21b46d034c8570d4f905e7e112adf0f0, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 21b46d034c8570d4f905e7e112adf0f0, type: 3}
       propertyPath: m_TagString
@@ -1553,11 +1553,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c88d04e9d943f947bb18dc9774e4285, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  typeOfGun: 0
-  weaponMuzzle: {fileID: 5642429796903137714}
-  projectilePrefab: {fileID: 6965950164403759309, guid: 3857fbaf79ec0d94b8142f312d0ca5ff, type: 3}
+  weaponType: 0
   damage: 10
   fireRate: 1.5
+  weaponMuzzle: {fileID: 5642429796903137714}
+  projectilePrefab: {fileID: 6965950164403759309, guid: 3857fbaf79ec0d94b8142f312d0ca5ff, type: 3}
   baseSpread: 15
   bulletSpeed: 12
   bulletsPerShot: 15

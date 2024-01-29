@@ -8,23 +8,17 @@ public class VitalitySystem : MonoBehaviour, IDamageable
     [SerializeField] private int _currentHealth;
 
     public float CurrentHealthPercent { get; private set; }
-
     private int _id;
-    private string _name;
 
     public event Action OnDeath;
     public event Action OnTakingHit;
-    public event Action<int, string> OnRegister;
-
-    public void CallOnDeathEvent() => OnDeath?.Invoke();
-    public void CallOnTakingHitEvent() => OnTakingHit?.Invoke();
+    public event Action<int> OnRegister;
 
     private void Start()
     {
         _currentHealth = _maxHealth;
-        _id = CharacterDataManager.instance.CharRegister(_name, this);
-        _name = gameObject.name;
-        OnRegister?.Invoke(_id, _name);
+        _id = CharacterDataManager.instance.CharRegister(this);
+        OnRegister?.Invoke(_id);
     }
 
     public void TakeDamage(DamageInfo info)
@@ -38,13 +32,13 @@ public class VitalitySystem : MonoBehaviour, IDamageable
 
         if (_currentHealth <= 0)
         {
-            CallOnDeathEvent();
+            OnDeath?.Invoke();
             Die();
-            //Debug.Log($"{info.ShooterName} kill {gameObject.name}");
+            Debug.Log($"{info.DamagerName} killed {gameObject.name} by {info.weaponType}");
         }
         else
         {
-            CallOnTakingHitEvent();
+            OnTakingHit?.Invoke();
             //Debug.Log($"{info.ShooterName} shoot on {gameObject.name} and deal {info.Damage} damage");
         }
     }
@@ -59,14 +53,16 @@ public class VitalitySystem : MonoBehaviour, IDamageable
 
 public struct DamageInfo
 {
-    public int Damage;
     public int ShooterID;
-    public string ShooterName;
+    public string DamagerName;
+    public WeaponType weaponType;
+    public int Damage;
 
-    public DamageInfo(int damage, int shooterID, string shooterName)
+    public DamageInfo(int shooterID, string shooterName, WeaponType weaponType, int damage)
     {
-        Damage = damage;
         ShooterID = shooterID;
-        ShooterName = shooterName;
+        DamagerName = shooterName;
+        this.weaponType = weaponType;
+        Damage = damage;
     }
 }

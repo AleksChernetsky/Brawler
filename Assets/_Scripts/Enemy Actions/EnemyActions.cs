@@ -3,8 +3,7 @@ using UnityEngine.AI;
 
 public class EnemyActions : MonoBehaviour
 {
-    //private IWeapon _weapon;
-    private RangeWeapon _TESTWeapon;
+    private WeaponMain _weaponMain;
     private EnemyTracker _enemyTracker;
     private NavMeshAgent _agent;
     private VitalitySystem _vitalitySystem;
@@ -26,8 +25,7 @@ public class EnemyActions : MonoBehaviour
         ChaseState = new ChaseState(this, StateMachine);
         AttackState = new AttackState(this, StateMachine);
 
-        //_weapon = GetComponent<IWeapon>();
-        _TESTWeapon = GetComponent<RangeWeapon>();
+        _weaponMain = GetComponent<WeaponMain>();
         _enemyTracker = GetComponent<EnemyTracker>();
         _agent = GetComponent<NavMeshAgent>();
         _vitalitySystem = GetComponent<VitalitySystem>();
@@ -61,8 +59,7 @@ public class EnemyActions : MonoBehaviour
     {
         _agent.SetDestination(gameObject.transform.position);
         _agent.transform.LookAt(_enemyTracker.Enemy.position);
-        //_weapon.Shoot();
-        _TESTWeapon.Shoot();
+        _weaponMain.Shoot();
     }
     private void DeathState() => StateMachine.CurrentState = null;
 

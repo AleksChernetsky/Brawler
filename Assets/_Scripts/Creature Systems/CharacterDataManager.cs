@@ -16,13 +16,14 @@ public class CharacterDataManager : MonoBehaviour
             Destroy(gameObject);
     }
 
-    public int CharRegister(string name, VitalitySystem vitalitySystem)
+    public int CharRegister(VitalitySystem vitalitySystem)
     {
-        CharacterData characterData = new CharacterData { _id = _currentID, _name = name, _vitalitySystem = vitalitySystem };
+        CharacterData characterData = new CharacterData { _id = _currentID, _vitalitySystem = vitalitySystem };
         _registeredCharacters.Add(characterData._id, characterData);
         _currentID++;
         return characterData._id;
     }
+
 }
 
 public class CharacterData
@@ -31,4 +32,5 @@ public class CharacterData
     public string _name;
     public int _killsCount;
     public VitalitySystem _vitalitySystem;
+    public WeaponType _weaponType;
 }

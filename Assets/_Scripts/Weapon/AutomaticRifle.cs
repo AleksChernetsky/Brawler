@@ -2,20 +2,20 @@
 
 using UnityEngine;
 
-public class AutomaticRifle : RangeWeapon
+public class AutomaticRifle : WeaponRange
 {
-    [SerializeField] private float lagBetweenShots;
+    [SerializeField] private float timeBetweenShots;
 
     public override void Shoot()
     {
-        if (ShootTimer >= fireRate)
+        if (attackTimer >= fireRate)
         {
             if (clipsLeft > 0)
             {
                 CallOnShootEvent();
                 StartCoroutine(BurstFire());
                 clipsLeft--;
-                ShootTimer = 0;
+                attackTimer = 0;
             }
         }
     }
@@ -29,7 +29,7 @@ public class AutomaticRifle : RangeWeapon
             isFiring = true;
             SpawnProjectile();
             shotCounter++;
-            yield return new WaitForSeconds(lagBetweenShots);
+            yield return new WaitForSeconds(timeBetweenShots);
         }
         if (clipsLeft < numberOfClips)
         {
@@ -51,7 +51,7 @@ public class AutomaticRifle : RangeWeapon
             bullet.transform.Rotate(new Vector3(SpreadX / 2, SpreadY, 0));
             bullet.SetActive(true);
             bullet.TryGetComponent(out Projectile projectile);
-            projectile._damageInfo = _damageInfo;
+            projectile._damageInfo = damageInfo;
             projectile.RigidBody.AddForce(bullet.transform.forward * bulletSpeed, ForceMode.Impulse);
         }
     }
