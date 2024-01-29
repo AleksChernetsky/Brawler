@@ -5,15 +5,22 @@ public class AnimationHandler : MonoBehaviour
 {
     private Animator _animator;
     private NavMeshAgent _agent;
+    private TESTWeapon _testWeapon;
+    private VitalitySystem _vitalitySystem;
     private float _speed;
 
     private void Start()
     {
         _animator = GetComponent<Animator>();
         _agent = GetComponent<NavMeshAgent>();
+        _vitalitySystem = GetComponent<VitalitySystem>();
+        _testWeapon = GetComponent<TESTWeapon>();
 
-        VitalitySystem.OnTakingDamage += PlayTakingHitAnim;
-        VitalitySystem.OnEnemyDied += PlayDeathAnim;
+        _testWeapon.OnShootEvent += PlayShootingAnim;
+        //_weapon.OnFistAttack += FistAttack;
+        //_weapon.OnClawAttack += ClawAttack;
+        _vitalitySystem.OnTakingHit += PlayTakingHitAnim;
+        _vitalitySystem.OnDeath += PlayDeathAnim;
     }
 
     private void Update()
@@ -26,21 +33,21 @@ public class AnimationHandler : MonoBehaviour
         _speed = _agent.velocity.magnitude;
         _animator.SetFloat("Speed", _speed);
     }
-
-    public void PlayAimmingAnim() => _animator.Play("Base Layer.Rifle Aiming Idle", 0);
-    public void PlayFiringAnim() => _animator.Play("Base Layer.Firing Rifle", 0);
+    public void PlayAimmingAnim() => _animator.Play("Base Layer.Rifle Aiming Idle");
+    public void PlayShootingAnim() => _animator.Play("Base Layer.Firing Rifle");
     public void PlayTakingHitAnim()
     {
         if (_speed >= 0.05)
-            _animator.Play("Base Layer.Hit Reaction Run", 0);
-        else
-            _animator.Play("Base Layer.Hit Reaction Idle", 0);
+            _animator.Play("Base Layer.Hit Reaction Run");
     }
     public void PlayDeathAnim()
     {
         if (_speed >= 0.05)
-            _animator.Play("Base Layer.Rifle Run To Dying", 0);
+            _animator.Play("Base Layer.Rifle Run To Dying");
         else
-            _animator.Play("Base Layer.Death From Back Headshot", 0);
+            _animator.Play("Base Layer.Death From Back Headshot");
     }
+
+    public void FistAttack() => _animator.SetTrigger("FistAttack");
+    public void ClawAttack() => _animator.SetTrigger("ClawAttack");
 }

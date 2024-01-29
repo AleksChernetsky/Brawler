@@ -5,11 +5,12 @@ public class Projectile : MonoBehaviour
 {
     [SerializeField] private Rigidbody _projectileRigidbody;
     private float _timer;
+    public DamageInfo _damageInfo;
 
     public Rigidbody RigidBody => _projectileRigidbody;
     public float DestroyTime = 3;
 
-    public float Damage;
+    public int Damage;
 
     private void FixedUpdate()
     {
@@ -17,7 +18,6 @@ public class Projectile : MonoBehaviour
 
         if (_timer >= DestroyTime)
         {
-            gameObject.SetActive(false);
             ResetProjectile();
         }
     }
@@ -26,7 +26,7 @@ public class Projectile : MonoBehaviour
     {
         if (collision.gameObject.TryGetComponent(out VitalitySystem vitalitySystem))
         {
-            vitalitySystem.TakeDamage(Damage);
+            vitalitySystem.TakeDamage(_damageInfo);
             ResetProjectile();
         }
         else
@@ -39,6 +39,8 @@ public class Projectile : MonoBehaviour
     {
         gameObject.SetActive(false);
         _timer = 0;
-        _projectileRigidbody.velocity = new Vector3(0, 0, 0);
+        _projectileRigidbody.velocity = Vector3.zero;
+        _projectileRigidbody.position = Vector3.zero;
+        _projectileRigidbody.rotation = Quaternion.identity;
     }
 }

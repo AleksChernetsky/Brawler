@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 8817610226091452022}
   - component: {fileID: 2432727873454814327}
   - component: {fileID: 2270300557919478846}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Move BG
-  m_TagString: Untagged
+  m_TagString: Movement Joystick
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25,12 +25,12 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7355634392009067908}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 3610449190038494907}
+  - {fileID: 7621637688242658299}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -76,7 +76,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!1001 &7708759614734413859
+--- !u!1001 &3541130539172279651
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -94,27 +94,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6404646908497260184, guid: 13346f07ccba93b44b07cbc959b93e4e, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6404646908497260184, guid: 13346f07ccba93b44b07cbc959b93e4e, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6404646908497260184, guid: 13346f07ccba93b44b07cbc959b93e4e, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6404646908497260184, guid: 13346f07ccba93b44b07cbc959b93e4e, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6404646908497260184, guid: 13346f07ccba93b44b07cbc959b93e4e, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 6404646908497260184, guid: 13346f07ccba93b44b07cbc959b93e4e, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 6404646908497260184, guid: 13346f07ccba93b44b07cbc959b93e4e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -166,15 +166,62 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7476179190340641823, guid: 13346f07ccba93b44b07cbc959b93e4e, type: 3}
       propertyPath: m_Name
-      value: Knob
+      value: Movement Joystick Knob
+      objectReference: {fileID: 0}
+    - target: {fileID: 7476179190340641823, guid: 13346f07ccba93b44b07cbc959b93e4e, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7476179190340641823, guid: 13346f07ccba93b44b07cbc959b93e4e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1686232283667932094}
   m_SourcePrefab: {fileID: 100100000, guid: 13346f07ccba93b44b07cbc959b93e4e, type: 3}
---- !u!224 &3610449190038494907 stripped
+--- !u!1 &6261171344986952060 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7476179190340641823, guid: 13346f07ccba93b44b07cbc959b93e4e, type: 3}
+  m_PrefabInstance: {fileID: 3541130539172279651}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1686232283667932094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6261171344986952060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9d677f1681015749b15c436eec6d880, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_MovementRange: 80
+  m_DynamicOriginRange: 100
+  m_ControlPath: <Gamepad>/leftStick
+  m_Behaviour: 0
+  m_UseIsolatedInputActions: 0
+  m_PointerDownAction:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 84966c8c-9e31-4f53-96d9-fa6bd4db5860
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  m_PointerMoveAction:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: ea1ae2f4-29e1-4d30-8ec5-f0141f15632e
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+--- !u!224 &7621637688242658299 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6404646908497260184, guid: 13346f07ccba93b44b07cbc959b93e4e, type: 3}
-  m_PrefabInstance: {fileID: 7708759614734413859}
+  m_PrefabInstance: {fileID: 3541130539172279651}
   m_PrefabAsset: {fileID: 0}

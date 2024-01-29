@@ -11,8 +11,7 @@ public class EnemyTracker : MonoBehaviour
     [SerializeField] private LayerMask layermask;
     [SerializeField] private float _distanceToCheck;
     [SerializeField] private float _distanceToChase;
-    [SerializeField] private float _distanceToRangeAttack;
-    //[SerializeField] private float _distanceToMeleeAttack;
+    [SerializeField] private float _distanceToAttack;
 
     [Header("Enemy Values")]
     public Transform Enemy;
@@ -21,7 +20,7 @@ public class EnemyTracker : MonoBehaviour
 
     public float DistanceToCheck { get => _distanceToCheck; set => _distanceToCheck = value; }
     public float DistanceToChase { get => _distanceToChase; set => _distanceToChase = value; }
-    public float DistanceToAttack { get => _distanceToRangeAttack; set => _distanceToRangeAttack = value; }
+    public float DistanceToAttack { get => _distanceToAttack; set => _distanceToAttack = value; }
 
     private void OnDrawGizmos()
     {
@@ -67,8 +66,12 @@ public class EnemyTracker : MonoBehaviour
 
         for (var i = 0; i < enemyColliders.Length; i++)
         {
+            if (enemyColliders[i].transform == transform)
+            {
+                continue;
+            }
             DistanceToTarget = Vector3.Distance(transform.position, enemyColliders[i].transform.position);
-            if (DistanceToTarget < DistanceToEnemy && DistanceToTarget > 0)
+            if (DistanceToTarget < DistanceToEnemy)
             {
                 DistanceToEnemy = DistanceToTarget;
                 target = enemyColliders[i].transform;

@@ -7,6 +7,8 @@ TagManager:
   - PatrolPoint
   - Enemy
   - Environment
+  - Movement Joystick
+  - Combat Joystick
   layers:
   - Default
   - TransparentFX
@@ -15,7 +17,7 @@ TagManager:
   - Water
   - UI
   - Bullet
-  - 
+  - Melee Weapon
   - 
   - 
   - 

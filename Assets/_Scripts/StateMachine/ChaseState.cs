@@ -6,7 +6,7 @@ public class ChaseState : BaseState
 
     public override void EnterState()
     {
-        Debug.Log("Enter Chase State");
+        //Debug.Log("Enter Chase State");
     }
     public override void UpdateState()
     {

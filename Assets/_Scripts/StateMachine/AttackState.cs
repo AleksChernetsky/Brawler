@@ -1,12 +1,10 @@
-﻿using UnityEngine;
-
-public class AttackState : BaseState
+﻿public class AttackState : BaseState
 {
     public AttackState(EnemyActions enemyActions, StateMachine stateMachine) : base(enemyActions, stateMachine) { }
 
     public override void EnterState()
     {
-        Debug.Log("Enter Attack State");
+        //Debug.Log("Enter Attack State");
     }
     public override void UpdateState()
     {

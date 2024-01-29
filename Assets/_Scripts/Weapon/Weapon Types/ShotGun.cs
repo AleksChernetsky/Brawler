@@ -6,29 +6,43 @@ using UnityEngine;
 
 using Random = UnityEngine.Random;
 
-public class ShotGun : Weapon<ShotGunValues>
+public class ShotGun : Weapon<ShotGunDataScriptableObject>
 {
-    private float _forceRandomFactor => _weaponValues.ForceRandomFactor;
-    private int _projectileNumber => _weaponValues.ProjectileNumber;
-    private float _spreadFactor => _weaponValues.SpreadFactor;
+    [SerializeField] protected Transform _weaponMuzzle;
+    [SerializeField] protected Projectile _projectilePrefab;
+    private float _forceRandomFactor => _weaponData.ForceRandomFactor;
+    private float _spreadFactor => _weaponData.SpreadFactor;
+    private ForceMode _forceMode => _weaponData.ForceMode;
+    private float _force => _weaponData.Force;
+    private int _magCapacity => _weaponData.MagCapacity;
 
     public override void Shoot()
     {
-        _weaponMuzzle.Rotate(new Vector3(0, -_spreadFactor, 0));
-        for (int i = 0; i < _projectileNumber; i++)
+        if (CanAttack && _currentAmmo < _magCapacity)
         {
-            _weaponMuzzle.Rotate(new Vector3(0, _spreadFactor / (_projectileNumber / 2), 0)); // only even _projectileNumber required
-            GameObject bullet = ObjectPool.Instance.GetFreeElement();
-
-            if (bullet != null)
+            CanAttack = false;
+            for (int i = 0; i < _magCapacity; i++)
             {
-                bullet.transform.SetPositionAndRotation(_weaponMuzzle.position, _weaponMuzzle.rotation);
-                bullet.SetActive(true);
-                bullet.TryGetComponent(out Projectile projectile);
-                projectile.Damage = Damage;
-                projectile.RigidBody.AddForce(_weaponMuzzle.transform.forward * Random.Range(Force, Force * _forceRandomFactor), ForceMode);
+                GameObject bullet = ObjectPool.Instance.GetFreeElement();
+                var SpreadX = Random.Range(-_spreadFactor, _spreadFactor);
+                var SpreadY = Random.Range(-_spreadFactor, _spreadFactor);
+
+                if (bullet != null)
+                {
+                    _currentAmmo++;
+                    CallOnShootEvent();
+                    bullet.transform.SetPositionAndRotation(_weaponMuzzle.position, _weaponMuzzle.rotation);
+                    bullet.transform.Rotate(new Vector3(SpreadX, SpreadY, 0));
+                    bullet.SetActive(true);
+                    bullet.TryGetComponent(out Projectile projectile);
+                    projectile._damageInfo = _damageInfo;
+                    projectile.RigidBody.AddForce(bullet.transform.forward * Random.Range(_force, _force * _forceRandomFactor), _forceMode);
+                }
             }
+            if (_currentAmmo < _magCapacity)
+                StartCoroutine(ResetAttackCooldown());
+            else
+                StartCoroutine(ReloadWeapon());
         }
-        _weaponMuzzle.Rotate(new Vector3(0, -_spreadFactor, 0));
     }
 }
