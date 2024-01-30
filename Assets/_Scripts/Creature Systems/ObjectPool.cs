@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class ObjectPool : MonoBehaviour
 {
-    [SerializeField] private Transform container;
-    [SerializeField] private GameObject _projectilePrefab;
+    [SerializeField] private Transform _projectileContainer;
+    [SerializeField] private Transform _damageTextContainer;
+    [SerializeField] private Projectile _projectilePrefab;
+    [SerializeField] private DamageText _damageTextPrefab;
 
     [SerializeField] private int _amountToPool;
-    [SerializeField] private bool autoExpand;
 
-    private List<GameObject> pooledObjects = new List<GameObject>();
+    private List<GameObject> pooledProjectiles = new List<GameObject>();
+    private List<GameObject> pooledDamageTexts = new List<GameObject>();
     public static ObjectPool Instance;
 
     private void Awake()
@@ -29,33 +31,47 @@ public class ObjectPool : MonoBehaviour
     private void CreatePool()
     {
         for (int i = 0; i < _amountToPool; i++)
-            CreateObject();
+        {
+            CreateProjectile();
+            CreateDamageText();
+        }
     }
 
-    private GameObject CreateObject(bool isActiveByDefault = false)
+    private GameObject CreateProjectile(bool isActiveByDefault = false)
     {
-        GameObject projectile = Instantiate(_projectilePrefab, container);
+        GameObject projectile = Instantiate(_projectilePrefab.gameObject, _projectileContainer);
         projectile.SetActive(isActiveByDefault);
-        pooledObjects.Add(projectile);
+        pooledProjectiles.Add(projectile);
         return projectile;
     }
-
-    public GameObject GetFreeElement()
+    private GameObject CreateDamageText(bool isActiveByDefault = false)
     {
-        for (int i = 0; i < pooledObjects.Count; i++)
+        GameObject damageText = Instantiate(_damageTextPrefab.gameObject, _damageTextContainer);
+        damageText.SetActive(isActiveByDefault);
+        pooledDamageTexts.Add(damageText);
+        return damageText;
+    }
+
+    public GameObject GetFreeProjectile()
+    {
+        for (int i = 0; i < pooledProjectiles.Count; i++)
         {
-            if (!pooledObjects[i].activeInHierarchy)
+            if (!pooledProjectiles[i].activeInHierarchy)
             {
-                return pooledObjects[i];
+                return pooledProjectiles[i];
             }
         }
-
-        for (int i = 0; i < 21; i++)
+        throw new Exception("There is no free element in pool");
+    }
+    public GameObject GetFreeDamageText()
+    {
+        for (int i = 0; i < pooledDamageTexts.Count; i++)
         {
-            if (autoExpand)
-                return CreateObject(true);
+            if (!pooledDamageTexts[i].activeInHierarchy)
+            {
+                return pooledDamageTexts[i];
+            }
         }
-
         throw new Exception("There is no free element in pool");
     }
 }

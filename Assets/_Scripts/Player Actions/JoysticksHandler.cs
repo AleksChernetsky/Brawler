@@ -10,8 +10,7 @@ public class JoysticksHandler : MonoBehaviour
     [SerializeField] private RectTransform _combatJoystickBackGround;
     [SerializeField] private GameObject _shootDirection;
 
-    //private IWeapon _weapon;
-    private WeaponMain _weapon;
+    private WeaponMain _weaponMain;
 
     private Vector2 _movementJoystickStartPosition;
     private Vector2 _combatJoystickStartPosition;
@@ -26,8 +25,7 @@ public class JoysticksHandler : MonoBehaviour
     {
         _agent = GetComponent<NavMeshAgent>();
         _animHandler = GetComponent<AnimationHandler>();
-        //_weapon = GetComponent<IWeapon>();
-        _weapon = GetComponent<WeaponMain>();
+        _weaponMain  = GetComponent<WeaponMain>();
 
         _joystick = new Joystick();
         _joystick.Enable();
@@ -95,6 +93,7 @@ public class JoysticksHandler : MonoBehaviour
     {
         var inputDirection = _joystick.GamePlay.Movement.ReadValue<Vector2>();
         _agent.destination = transform.position + new Vector3(inputDirection.x, 0, inputDirection.y);
+        _agent.velocity = _agent.desiredVelocity;
         transform.LookAt(_agent.destination);
     }
     public void RotateToShoot()
@@ -106,7 +105,7 @@ public class JoysticksHandler : MonoBehaviour
     }
     private void Shoot()
     {
-        _weapon.Shoot();
+        _weaponMain.Shoot();
         _shootDirection.SetActive(false);
         IsAiming = false;
     }

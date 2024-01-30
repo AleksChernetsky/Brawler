@@ -41,6 +41,7 @@ public class EnemyActions : MonoBehaviour
         if (StateMachine.CurrentState != null)
         {
             StateMachine.CurrentState.UpdateState();
+            _agent.velocity = _agent.desiredVelocity;
         }
     }
 

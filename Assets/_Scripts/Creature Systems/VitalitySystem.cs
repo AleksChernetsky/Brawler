@@ -1,17 +1,24 @@
 using System;
+using System.Collections;
 
 using UnityEngine;
 
 public class VitalitySystem : MonoBehaviour, IDamageable
 {
-    [SerializeField] private int _maxHealth;
-    [SerializeField] private int _currentHealth;
+    [Header("Health")]
+    [SerializeField] private float _maxHealth;
+    [SerializeField] private float _currentHealth;
+    public float HealthPercentage { get; private set; }
 
-    public float CurrentHealthPercent { get; private set; }
+    [Header("Intake Damage Text")]
+    [SerializeField] private Transform _damageSpawnPoint;
+
+    private bool GetHit;
     private int _id;
 
     public event Action OnDeath;
     public event Action OnTakingHit;
+    public event Action OnHealing;
     public event Action<int> OnRegister;
 
     private void Start()
@@ -23,31 +30,57 @@ public class VitalitySystem : MonoBehaviour, IDamageable
 
     public void TakeDamage(DamageInfo info)
     {
-        CurrentHealthPercent = (float)_currentHealth / _maxHealth;
+        _currentHealth -= info.Damage;
+        GetHit = true;
 
         if (_currentHealth > 0)
         {
-            _currentHealth -= info.Damage;
-        }
-
-        if (_currentHealth <= 0)
-        {
-            OnDeath?.Invoke();
-            Die();
-            Debug.Log($"{info.DamagerName} killed {gameObject.name} by {info.weaponType}");
+            HealthPercentage = _currentHealth / _maxHealth;
+            OnTakingHit?.Invoke();
+            SpawnDamageText(info.Damage);
+            StartCoroutine(AutoHealing());
+            //Debug.Log($"{info.DamagerName} deal {info.Damage} damage to {gameObject.name} by {info.weaponType}");
         }
         else
         {
-            OnTakingHit?.Invoke();
-            //Debug.Log($"{info.ShooterName} shoot on {gameObject.name} and deal {info.Damage} damage");
+            OnDeath?.Invoke();
+            Die();
+            //Debug.Log($"{info.DamagerName} killed {gameObject.name} by {info.weaponType}");
         }
     }
 
     public void Die()
     {
         gameObject.GetComponent<Collider>().enabled = false;
-        gameObject.layer = 0;
         Destroy(gameObject, 5f);
+    }
+
+    private void SpawnDamageText(int value)
+    {
+        GameObject text = ObjectPool.Instance.GetFreeDamageText();
+        var randomForce = UnityEngine.Random.Range(3, 5); // numbers configured in playmode
+        var randomDirection = new Vector3(UnityEngine.Random.Range(-0.3f, 0.3f), 0, 0); // numbers configured in playmode
+        if (text != null)
+        {
+            text.transform.SetPositionAndRotation(_damageSpawnPoint.position, _damageSpawnPoint.rotation);
+            text.SetActive(true);
+            text.TryGetComponent(out DamageText damageText);
+            damageText.textMesh.text = value.ToString();
+            damageText.RigidBody.AddForce((text.transform.up + randomDirection) * randomForce, ForceMode.Impulse);
+        }
+    }
+
+    private IEnumerator AutoHealing()
+    {
+        yield return new WaitForSeconds(5); // start healing after 5 second left
+        GetHit = false;
+        while (GetHit == false && _currentHealth < _maxHealth)
+        {
+            _currentHealth++;
+            OnHealing?.Invoke();
+            HealthPercentage = _currentHealth / _maxHealth;
+            yield return new WaitForSeconds(1); // heal each 1 second
+        }
     }
 }
 

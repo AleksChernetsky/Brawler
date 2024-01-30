@@ -5,7 +5,7 @@ public class Projectile : MonoBehaviour
 {
     [SerializeField] private Rigidbody _projectileRigidbody;
     private float _timer;
-    public DamageInfo _damageInfo;
+    public DamageInfo DamageInfo;
 
     public Rigidbody RigidBody => _projectileRigidbody;
     public float DestroyTime = 3;
@@ -26,7 +26,7 @@ public class Projectile : MonoBehaviour
     {
         if (collision.gameObject.TryGetComponent(out VitalitySystem vitalitySystem))
         {
-            vitalitySystem.TakeDamage(_damageInfo);
+            vitalitySystem.TakeDamage(DamageInfo);
             ResetProjectile();
         }
         else

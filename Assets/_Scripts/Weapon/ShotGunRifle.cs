@@ -37,7 +37,7 @@ public class ShotGunRifle : WeaponRange
     }
     private void SpawnProjectile()
     {
-        GameObject bullet = ObjectPool.Instance.GetFreeElement();
+        GameObject bullet = ObjectPool.Instance.GetFreeProjectile();
         var SpreadX = Random.Range(-baseSpread, baseSpread);
         var SpreadY = Random.Range(-baseSpread, baseSpread);
 
@@ -48,7 +48,7 @@ public class ShotGunRifle : WeaponRange
             bullet.transform.Rotate(new Vector3(SpreadX / 2, SpreadY, 0));
             bullet.SetActive(true);
             bullet.TryGetComponent(out Projectile projectile);
-            projectile._damageInfo = damageInfo;
+            projectile.DamageInfo = damageInfo;
             projectile.RigidBody.AddForce(bullet.transform.forward * bulletSpeed, ForceMode.Impulse);
         }
     }
