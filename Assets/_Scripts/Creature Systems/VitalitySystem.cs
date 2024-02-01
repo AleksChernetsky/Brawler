@@ -5,16 +5,20 @@ using UnityEngine;
 
 public class VitalitySystem : MonoBehaviour, IDamageable
 {
-    [Header("Health")]
+    [Header("Health Values")]
     [SerializeField] private float _maxHealth;
-    [SerializeField] private float _currentHealth;
+    [SerializeField] private float _healRegenAmount;
+    [SerializeField] private float _autoHealDelay;
+    [SerializeField] private float _healRegenRate;
+    private float _currentHealth;
     public float HealthPercentage { get; private set; }
 
     [Header("Intake Damage Text")]
     [SerializeField] private Transform _damageSpawnPoint;
 
-    private bool GetHit;
     private int _id;
+
+    private Coroutine _autoHealing;
 
     public event Action OnDeath;
     public event Action OnTakingHit;
@@ -31,14 +35,16 @@ public class VitalitySystem : MonoBehaviour, IDamageable
     public void TakeDamage(DamageInfo info)
     {
         _currentHealth -= info.Damage;
-        GetHit = true;
+
+        if (_autoHealing != null)
+            StopCoroutine(_autoHealing);
+        _autoHealing = StartCoroutine(AutoHealing());
 
         if (_currentHealth > 0)
         {
             HealthPercentage = _currentHealth / _maxHealth;
             OnTakingHit?.Invoke();
             SpawnDamageText(info.Damage);
-            StartCoroutine(AutoHealing());
             //Debug.Log($"{info.DamagerName} deal {info.Damage} damage to {gameObject.name} by {info.weaponType}");
         }
         else
@@ -62,7 +68,7 @@ public class VitalitySystem : MonoBehaviour, IDamageable
         var randomDirection = new Vector3(UnityEngine.Random.Range(-0.3f, 0.3f), 0, 0); // numbers configured in playmode
         if (text != null)
         {
-            text.transform.SetPositionAndRotation(_damageSpawnPoint.position, _damageSpawnPoint.rotation);
+            text.transform.SetPositionAndRotation((_damageSpawnPoint.position + randomDirection), _damageSpawnPoint.rotation);
             text.SetActive(true);
             text.TryGetComponent(out DamageText damageText);
             damageText.textMesh.text = value.ToString();
@@ -72,14 +78,13 @@ public class VitalitySystem : MonoBehaviour, IDamageable
 
     private IEnumerator AutoHealing()
     {
-        yield return new WaitForSeconds(5); // start healing after 5 second left
-        GetHit = false;
-        while (GetHit == false && _currentHealth < _maxHealth)
+        yield return new WaitForSeconds(_autoHealDelay); // start healing after 5 second left
+        while (_currentHealth < _maxHealth)
         {
-            _currentHealth++;
+            _currentHealth += _healRegenAmount;
             OnHealing?.Invoke();
             HealthPercentage = _currentHealth / _maxHealth;
-            yield return new WaitForSeconds(1); // heal each 1 second
+            yield return new WaitForSeconds(_healRegenRate); // heal each 0.5 second
         }
     }
 }

@@ -13,6 +13,8 @@ public abstract class WeaponMain : MonoBehaviour
     protected DamageInfo damageInfo;
     protected float attackTimer;
 
+    public float CurrentAmmo { get; protected set; }
+
     public event Action OnShootEvent;
     public event Action OnFistAttack;
     public event Action OnClawAttack;
@@ -21,20 +23,8 @@ public abstract class WeaponMain : MonoBehaviour
     public void CallOnFistAttack() => OnFistAttack?.Invoke();
     public void CallOnClawAttack() => OnClawAttack?.Invoke();
 
-
-    protected void Awake()
-    {
-        GetComponent<VitalitySystem>().OnRegister += DamagerInfo;
-    }
-    private void Update()
-    {
-        attackTimer += Time.deltaTime;
-    }
-
+    protected void Awake() => GetComponent<VitalitySystem>().OnRegister += DamagerInfo;
+    private void Update() => attackTimer += Time.deltaTime;
     public abstract void Shoot();
-
-    private void DamagerInfo(int id)
-    {
-        damageInfo = new DamageInfo(id, gameObject.name, weaponType, damage);
-    }
+    private void DamagerInfo(int id) => damageInfo = new DamageInfo(id, gameObject.name, weaponType, damage);
 }
