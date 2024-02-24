@@ -3,26 +3,25 @@ using UnityEngine.UI;
 
 public class AmmoBar : HealthBar
 {
-    //[SerializeField] private Image ammoBar;
     private WeaponMain _weaponMain;
-    //private Animator _anim;
 
     private void Start()
     {
-        //_anim = GetComponent<Animator>();
-        _weaponMain = GetComponent<WeaponMain>();
-        _weaponMain.OnShootEvent += ChangeAmmoBar;
+        _anim = GetComponent<Animator>();
+        _weaponMain = GetComponentInParent<WeaponMain>();
+        _weaponMain.OnShoot += ChangeAmmoBar;
+        _weaponMain.OnReload += ChangeAmmoBar;
     }
     private void ChangeAmmoBar()
     {
         _progressBar.fillAmount = _weaponMain.CurrentAmmo;
-        _anim.SetTrigger("TakeHit");
+        _anim.SetTrigger("Reload");
     }
     public override void DestroyBar() => base.DestroyBar();
 
     private void OnDestroy()
     {        
-        _weaponMain.OnShootEvent -= ChangeAmmoBar;
-        _vitalitySystem.OnDeath -= DestroyBar;
+        _weaponMain.OnShoot -= ChangeAmmoBar;
+        _weaponMain.OnReload -= ChangeAmmoBar;
     }
 }

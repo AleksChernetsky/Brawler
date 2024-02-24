@@ -16,7 +16,7 @@ public class AnimationHandler : MonoBehaviour
         _vitalitySystem = GetComponent<VitalitySystem>();
         _weaponMain = GetComponent<WeaponMain>();
 
-        _weaponMain.OnShootEvent += PlayShootingAnim;
+        _weaponMain.OnShoot += PlayShootingAnim;
         _weaponMain.OnFistAttack += FistAttack;
         _weaponMain.OnClawAttack += ClawAttack;
 

@@ -45,7 +45,7 @@ MeshRenderer:
   m_GameObject: {fileID: 6887345140773000011}
   m_Enabled: 1
   m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_ReceiveShadows: 0
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
@@ -95,7 +95,7 @@ TextMesh:
   m_TabSize: 4
   m_FontSize: 40
   m_FontStyle: 1
-  m_RichText: 1
+  m_RichText: 0
   m_Font: {fileID: 12800000, guid: 2d7c6f8d2b2394f4aa811256b59296d3, type: 3}
   m_Color:
     serializedVersion: 2

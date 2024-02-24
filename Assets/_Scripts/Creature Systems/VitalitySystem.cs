@@ -3,22 +3,38 @@ using System.Collections;
 
 using UnityEngine;
 
+public struct DamageInfo
+{
+    public int ShooterID;
+    public string DamagerName;
+    public WeaponType weaponType;
+    public int Damage;
+
+    public DamageInfo(int shooterID, string shooterName, WeaponType weaponType, int damage)
+    {
+        ShooterID = shooterID;
+        DamagerName = shooterName;
+        this.weaponType = weaponType;
+        Damage = damage;
+    }
+}
+
 public class VitalitySystem : MonoBehaviour, IDamageable
 {
     [Header("Health Values")]
-    [SerializeField] private float _maxHealth;
     [SerializeField] private float _healRegenAmount;
     [SerializeField] private float _autoHealDelay;
     [SerializeField] private float _healRegenRate;
-    private float _currentHealth;
-    public float HealthPercentage { get; private set; }
 
     [Header("Intake Damage Text")]
     [SerializeField] private Transform _damageSpawnPoint;
 
     private int _id;
-
     private Coroutine _autoHealing;
+
+    public float MaxHealth { get; private set; }
+    public float CurrentHealth { get; private set; }
+    public float HealthPercentage { get; private set; }
 
     public event Action OnDeath;
     public event Action OnTakingHit;
@@ -27,22 +43,23 @@ public class VitalitySystem : MonoBehaviour, IDamageable
 
     private void Start()
     {
-        _currentHealth = _maxHealth;
+        MaxHealth = 100;
+        CurrentHealth = MaxHealth;
         _id = CharacterDataManager.instance.CharRegister(this);
         OnRegister?.Invoke(_id);
     }
 
     public void TakeDamage(DamageInfo info)
     {
-        _currentHealth -= info.Damage;
+        CurrentHealth -= info.Damage;
 
         if (_autoHealing != null)
             StopCoroutine(_autoHealing);
         _autoHealing = StartCoroutine(AutoHealing());
 
-        if (_currentHealth > 0)
+        if (CurrentHealth > 0)
         {
-            HealthPercentage = _currentHealth / _maxHealth;
+            HealthPercentage = CurrentHealth / MaxHealth;
             OnTakingHit?.Invoke();
             SpawnDamageText(info.Damage);
             //Debug.Log($"{info.DamagerName} deal {info.Damage} damage to {gameObject.name} by {info.weaponType}");
@@ -58,9 +75,9 @@ public class VitalitySystem : MonoBehaviour, IDamageable
     public void Die()
     {
         gameObject.GetComponent<Collider>().enabled = false;
+        CharacterDataManager.instance.CharDelete(_id);
         Destroy(gameObject, 5f);
     }
-
     private void SpawnDamageText(int value)
     {
         GameObject text = ObjectPool.Instance.GetFreeDamageText();
@@ -75,32 +92,15 @@ public class VitalitySystem : MonoBehaviour, IDamageable
             damageText.RigidBody.AddForce((text.transform.up + randomDirection) * randomForce, ForceMode.Impulse);
         }
     }
-
     private IEnumerator AutoHealing()
     {
         yield return new WaitForSeconds(_autoHealDelay); // start healing after 5 second left
-        while (_currentHealth < _maxHealth)
+        while (CurrentHealth < MaxHealth)
         {
-            _currentHealth += _healRegenAmount;
+            CurrentHealth += _healRegenAmount;
             OnHealing?.Invoke();
-            HealthPercentage = _currentHealth / _maxHealth;
+            HealthPercentage = CurrentHealth / MaxHealth;
             yield return new WaitForSeconds(_healRegenRate); // heal each 0.5 second
         }
-    }
-}
-
-public struct DamageInfo
-{
-    public int ShooterID;
-    public string DamagerName;
-    public WeaponType weaponType;
-    public int Damage;
-
-    public DamageInfo(int shooterID, string shooterName, WeaponType weaponType, int damage)
-    {
-        ShooterID = shooterID;
-        DamagerName = shooterName;
-        this.weaponType = weaponType;
-        Damage = damage;
     }
 }

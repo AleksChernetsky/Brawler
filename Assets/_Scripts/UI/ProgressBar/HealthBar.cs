@@ -4,15 +4,16 @@ using UnityEngine.UI;
 public class HealthBar : MonoBehaviour
 {
     [SerializeField] protected Image _progressBar;
-    [SerializeField] private Transform _parentCanvas;
     protected Animator _anim;
-    protected VitalitySystem _vitalitySystem;
 
+    private VitalitySystem _vitalitySystem;
+    private Canvas _parentCanvas;
     private Camera _camera;
 
     private void Start()
     {
         _anim = GetComponent<Animator>();
+        _parentCanvas = GetComponentInParent<Canvas>();
         _vitalitySystem = GetComponentInParent<VitalitySystem>();
         _camera = Camera.main;
         _vitalitySystem.OnTakingHit += ChangeHPBar;
@@ -23,7 +24,7 @@ public class HealthBar : MonoBehaviour
     private void LateUpdate()
     {
         if (_camera != null)
-            _parentCanvas.LookAt(new Vector3(_parentCanvas.position.x, -_camera.transform.position.y, _parentCanvas.position.z));
+            _parentCanvas.transform.LookAt(new Vector3(_parentCanvas.transform.position.x, -_camera.transform.position.y, _parentCanvas.transform.position.z));
     }
     private void ChangeHPBar()
     {

@@ -36,7 +36,7 @@ public class PatrolArea : MonoBehaviour
         Vector3 _point;
         if (RandomPoint(point == null ? transform.position : point.position, radius == 0 ? Range : radius, out _point))
         {
-            Debug.DrawRay(_point, Vector3.up, Color.black, 1);
+            Debug.DrawRay(_point, Vector3.up, Color.black);
             return _point;
         }
         return point == null ? Vector3.zero : point.position;

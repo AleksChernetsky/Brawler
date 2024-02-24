@@ -10,7 +10,7 @@ public class Projectile : MonoBehaviour
     public Rigidbody RigidBody => _projectileRigidbody;
     public float DestroyTime = 3;
 
-    public int Damage;
+    public int Damage { get; set; }
 
     private void FixedUpdate()
     {

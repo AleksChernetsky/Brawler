@@ -2,10 +2,9 @@
 
 public class EventManager
 {
-    public static readonly UnityEvent<int> CoinPickedUo = new UnityEvent<int>();
+    public static readonly UnityEvent OnCharRegister = new UnityEvent();
+    public static readonly UnityEvent OnCharDelete = new UnityEvent();
 
-    static public void CallCoinPickedUp(int reward)
-    {
-        CoinPickedUo.Invoke(reward);
-    }
+    static public void CallOnCharRegister() => OnCharRegister?.Invoke();
+    static public void CallOnCharDelete() => OnCharDelete?.Invoke();
 }

@@ -16,7 +16,7 @@ public class EnemyTracker : MonoBehaviour
     [Header("Enemy Values")]
     public Transform Enemy;
     public float DistanceToEnemy;
-    public bool IsBlocked;
+    public bool Sight;
 
     public float DistanceToCheck { get => _distanceToCheck; set => _distanceToCheck = value; }
     public float DistanceToChase { get => _distanceToChase; set => _distanceToChase = value; }
@@ -41,7 +41,7 @@ public class EnemyTracker : MonoBehaviour
     {
         DistanceToEnemy = Mathf.Infinity;
     }
-    
+
     private void Update()
     {
         GetTarget();
@@ -50,13 +50,13 @@ public class EnemyTracker : MonoBehaviour
     private void GetTarget()
     {
         _checkCollidersDelay += Time.deltaTime;
-        if (_checkCollidersDelay >= 0.5f)
+        if (_checkCollidersDelay >= 0.25f)
         {
             enemyColliders = Physics.OverlapSphere(transform.position, DistanceToCheck, layermask);
             _checkCollidersDelay = 0;
             Enemy = NearestObject();
-            EnemyBlocked();
         }
+        EnemySight();
     }
 
     private Transform NearestObject()
@@ -67,10 +67,10 @@ public class EnemyTracker : MonoBehaviour
         for (var i = 0; i < enemyColliders.Length; i++)
         {
             if (enemyColliders[i].transform == transform)
-            {
                 continue;
-            }
+
             DistanceToTarget = Vector3.Distance(transform.position, enemyColliders[i].transform.position);
+
             if (DistanceToTarget < DistanceToEnemy)
             {
                 DistanceToEnemy = DistanceToTarget;
@@ -80,15 +80,15 @@ public class EnemyTracker : MonoBehaviour
         return target;
     }
 
-    private void EnemyBlocked()
+    private void EnemySight()
     {
         NavMeshHit hit;
         if (Enemy != null)
         {
-            IsBlocked = NavMesh.Raycast(transform.position, Enemy.transform.position, out hit, NavMesh.AllAreas);
-            Debug.DrawLine(transform.position, Enemy.transform.position, IsBlocked ? Color.red : Color.green);
+            Sight = NavMesh.Raycast(transform.position, Enemy.transform.position, out hit, NavMesh.AllAreas);
+            Debug.DrawLine(transform.position, Enemy.transform.position, Sight ? Color.red : Color.green);
 
-            if (IsBlocked)
+            if (Sight)
                 Debug.DrawRay(hit.position, Vector3.up, Color.yellow);
         }
     }

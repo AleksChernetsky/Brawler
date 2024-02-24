@@ -15,11 +15,13 @@ public abstract class WeaponMain : MonoBehaviour
 
     public float CurrentAmmo { get; protected set; }
 
-    public event Action OnShootEvent;
+    public event Action OnShoot;
+    public event Action OnReload;
     public event Action OnFistAttack;
     public event Action OnClawAttack;
 
-    public void CallOnShootEvent() => OnShootEvent?.Invoke();
+    public void CallOnShootEvent() => OnShoot?.Invoke();
+    public void CallOnReloadEvent() => OnReload?.Invoke();
     public void CallOnFistAttack() => OnFistAttack?.Invoke();
     public void CallOnClawAttack() => OnClawAttack?.Invoke();
 

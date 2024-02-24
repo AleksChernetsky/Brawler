@@ -16,7 +16,7 @@ public class Coin : MonoBehaviour
     {
         if (other.TryGetComponent(out VitalitySystem vitalitySystem))
         {
-            EventManager.CallCoinPickedUp(_reward);
+            //EventManager.CallOnPlayerDeath(_reward);
             Destroy(gameObject);
         }
     }

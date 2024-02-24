@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-
+﻿
 public class ChaseState : BaseState
 {
     public ChaseState(EnemyActions enemyActions, StateMachine stateMachine) : base(enemyActions, stateMachine) { }
