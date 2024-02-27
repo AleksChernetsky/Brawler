@@ -4,15 +4,15 @@
 
     public override void EnterState()
     {
-        //Debug.Log("Enter Attack State");
+        base.EnterState();
     }
     public override void UpdateState()
     {
-        if (_enemyActions.EnemyAlive && _enemyActions.CanAttack)
+        if (_enemyActions.EnemyAlive && _enemyActions.CanAttack && !_enemyActions.LowHealth)
         {
             _enemyActions.Attack();
         }
-        else if (_enemyActions.EnemyAlive && !_enemyActions.CanAttack)
+        else if (_enemyActions.EnemyAlive && !_enemyActions.CanAttack && !_enemyActions.LowHealth)
         {
             _stateMachine.SwitchState(_enemyActions.ChaseState);
         }
@@ -20,9 +20,13 @@
         {
             _stateMachine.SwitchState(_enemyActions.SearchState);
         }
+        else if(_enemyActions.LowHealth)
+        {
+             _stateMachine.SwitchState(_enemyActions.HideState);
+        }
     }
     public override void ExitState()
     {
-
+        base.ExitState();
     }
 }

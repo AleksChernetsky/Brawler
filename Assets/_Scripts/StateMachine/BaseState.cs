@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class BaseState
 {
     protected EnemyActions _enemyActions;

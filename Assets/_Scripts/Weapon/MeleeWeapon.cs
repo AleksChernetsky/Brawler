@@ -24,7 +24,7 @@ public class MeleeWeapon : WeaponMain
 
     public override void Shoot()
     {
-        if (attackTimer >= fireRate)
+        if (attackTimer >= FireRate)
         {
             if (AttackCount == 0)
             {

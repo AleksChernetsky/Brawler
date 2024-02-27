@@ -1,16 +1,14 @@
-﻿using UnityEngine;
-
-public class SearchState : BaseState
+﻿public class SearchState : BaseState
 {
     public SearchState(EnemyActions enemyActions, StateMachine stateMachine) : base(enemyActions, stateMachine) { }
 
     public override void EnterState()
     {
-        //Debug.Log("Enter Search State");
+        base.EnterState();
     }
     public override void UpdateState()
     {
-        _enemyActions.EnemySearch();
+        _enemyActions.Search();
 
         if (_enemyActions.EnemyAlive && _enemyActions.CanChase)
         {
@@ -23,6 +21,6 @@ public class SearchState : BaseState
     }
     public override void ExitState()
     {
-
+        base.ExitState();
     }
 }

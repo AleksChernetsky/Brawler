@@ -62,7 +62,6 @@ public class VitalitySystem : MonoBehaviour, IDamageable
             HealthPercentage = CurrentHealth / MaxHealth;
             OnTakingHit?.Invoke();
             SpawnDamageText(info.Damage);
-            //Debug.Log($"{info.DamagerName} deal {info.Damage} damage to {gameObject.name} by {info.weaponType}");
         }
         else
         {

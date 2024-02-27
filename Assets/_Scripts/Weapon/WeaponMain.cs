@@ -12,7 +12,7 @@ public abstract class WeaponMain : MonoBehaviour
 
     protected DamageInfo damageInfo;
     protected float attackTimer;
-
+    public float FireRate { get; protected set; }
     public float CurrentAmmo { get; protected set; }
 
     public event Action OnShoot;

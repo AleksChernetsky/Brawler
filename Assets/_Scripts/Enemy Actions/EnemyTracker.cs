@@ -16,7 +16,7 @@ public class EnemyTracker : MonoBehaviour
     [Header("Enemy Values")]
     public Transform Enemy;
     public float DistanceToEnemy;
-    public bool Sight;
+    public bool EnemyBlocked;
 
     public float DistanceToCheck { get => _distanceToCheck; set => _distanceToCheck = value; }
     public float DistanceToChase { get => _distanceToChase; set => _distanceToChase = value; }
@@ -37,15 +37,9 @@ public class EnemyTracker : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, DistanceToAttack);
     }
 
-    private void Awake()
-    {
-        DistanceToEnemy = Mathf.Infinity;
-    }
+    private void Awake() => DistanceToEnemy = Mathf.Infinity;
 
-    private void Update()
-    {
-        GetTarget();
-    }
+    private void Update() => GetTarget();
 
     private void GetTarget()
     {
@@ -53,10 +47,10 @@ public class EnemyTracker : MonoBehaviour
         if (_checkCollidersDelay >= 0.25f)
         {
             enemyColliders = Physics.OverlapSphere(transform.position, DistanceToCheck, layermask);
-            _checkCollidersDelay = 0;
+            EnemySight();
             Enemy = NearestObject();
+            _checkCollidersDelay = 0;
         }
-        EnemySight();
     }
 
     private Transform NearestObject()
@@ -85,11 +79,11 @@ public class EnemyTracker : MonoBehaviour
         NavMeshHit hit;
         if (Enemy != null)
         {
-            Sight = NavMesh.Raycast(transform.position, Enemy.transform.position, out hit, NavMesh.AllAreas);
-            Debug.DrawLine(transform.position, Enemy.transform.position, Sight ? Color.red : Color.green);
+            EnemyBlocked = NavMesh.Raycast(transform.position, Enemy.transform.position, out hit, NavMesh.AllAreas);
+            Debug.DrawLine(transform.position, Enemy.transform.position, EnemyBlocked ? Color.red : Color.green);
 
-            if (Sight)
-                Debug.DrawRay(hit.position, Vector3.up, Color.yellow);
+            if (EnemyBlocked)
+            Debug.DrawRay(hit.position, Vector3.up, Color.yellow, 0.5f);
         }
     }
 }
