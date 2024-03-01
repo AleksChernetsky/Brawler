@@ -1,6 +1,6 @@
 ﻿public class SearchState : BaseState
 {
-    public SearchState(EnemyActions enemyActions, StateMachine stateMachine) : base(enemyActions, stateMachine) { }
+    public SearchState(BotActions botActions, StateMachine stateMachine) : base(botActions, stateMachine) { }
 
     public override void EnterState()
     {
@@ -8,15 +8,15 @@
     }
     public override void UpdateState()
     {
-        _enemyActions.Search();
+        _botActions.Search();
 
-        if (_enemyActions.EnemyAlive && _enemyActions.CanChase)
+        if (_botActions.EnemyAlive && _botActions.CanChase)
         {
-            _stateMachine.SwitchState(_enemyActions.ChaseState);
+            _stateMachine.SwitchState(_botActions.ChaseState);
         }
-        else if (_enemyActions.EnemyAlive && _enemyActions.CanAttack)
+        else if (_botActions.EnemyAlive && _botActions.CanAttack)
         {
-            _stateMachine.SwitchState(_enemyActions.AttackState);
+            _stateMachine.SwitchState(_botActions.AttackState);
         }
     }
     public override void ExitState()

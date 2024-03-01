@@ -22,6 +22,7 @@ public struct DamageInfo
 public class VitalitySystem : MonoBehaviour, IDamageable
 {
     [Header("Health Values")]
+    [SerializeField] private float _maxHealth;
     [SerializeField] private float _healRegenAmount;
     [SerializeField] private float _autoHealDelay;
     [SerializeField] private float _healRegenRate;
@@ -32,7 +33,7 @@ public class VitalitySystem : MonoBehaviour, IDamageable
     private int _id;
     private Coroutine _autoHealing;
 
-    public float MaxHealth { get; private set; }
+    public float MaxHealth => _maxHealth;
     public float CurrentHealth { get; private set; }
     public float HealthPercentage { get; private set; }
 
@@ -43,7 +44,6 @@ public class VitalitySystem : MonoBehaviour, IDamageable
 
     private void Start()
     {
-        MaxHealth = 100;
         CurrentHealth = MaxHealth;
         _id = CharacterDataManager.instance.CharRegister(this);
         OnRegister?.Invoke(_id);
@@ -63,11 +63,10 @@ public class VitalitySystem : MonoBehaviour, IDamageable
             OnTakingHit?.Invoke();
             SpawnDamageText(info.Damage);
         }
-        else
+        else if (CurrentHealth <= 0)
         {
             OnDeath?.Invoke();
             Die();
-            //Debug.Log($"{info.DamagerName} killed {gameObject.name} by {info.weaponType}");
         }
     }
 

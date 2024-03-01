@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿
+using UnityEngine;
 using UnityEngine.AI;
 
 public class EnemyTracker : MonoBehaviour
@@ -21,6 +22,7 @@ public class EnemyTracker : MonoBehaviour
     public float DistanceToCheck { get => _distanceToCheck; set => _distanceToCheck = value; }
     public float DistanceToChase { get => _distanceToChase; set => _distanceToChase = value; }
     public float DistanceToAttack { get => _distanceToAttack; set => _distanceToAttack = value; }
+    public bool IsEnemyNearDeath => EnemyNearDeath();
 
     private void OnDrawGizmos()
     {
@@ -49,10 +51,10 @@ public class EnemyTracker : MonoBehaviour
             enemyColliders = Physics.OverlapSphere(transform.position, DistanceToCheck, layermask);
             EnemySight();
             Enemy = NearestObject();
+            EnemyNearDeath();
             _checkCollidersDelay = 0;
         }
     }
-
     private Transform NearestObject()
     {
         DistanceToEnemy = Mathf.Infinity;
@@ -73,7 +75,17 @@ public class EnemyTracker : MonoBehaviour
         }
         return target;
     }
-
+    private bool EnemyNearDeath()
+    {
+        if (Enemy != null && Enemy.TryGetComponent(out VitalitySystem vitalitySystem))
+        {
+            if (vitalitySystem.CurrentHealth <= vitalitySystem.MaxHealth * 0.15f)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
     private void EnemySight()
     {
         NavMeshHit hit;
@@ -83,7 +95,7 @@ public class EnemyTracker : MonoBehaviour
             Debug.DrawLine(transform.position, Enemy.transform.position, EnemyBlocked ? Color.red : Color.green);
 
             if (EnemyBlocked)
-            Debug.DrawRay(hit.position, Vector3.up, Color.yellow, 0.5f);
+                Debug.DrawRay(hit.position, Vector3.up, Color.yellow, 0.5f);
         }
     }
 }

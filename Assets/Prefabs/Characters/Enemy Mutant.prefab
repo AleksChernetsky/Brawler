@@ -10298,7 +10298,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 298869901b5589c438d87e69f710c654, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.36
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 298869901b5589c438d87e69f710c654, type: 3}
       propertyPath: m_LocalPosition.y
@@ -10306,7 +10306,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 298869901b5589c438d87e69f710c654, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -1.21
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 298869901b5589c438d87e69f710c654, type: 3}
       propertyPath: m_LocalRotation.w
@@ -10314,15 +10314,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 298869901b5589c438d87e69f710c654, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 298869901b5589c438d87e69f710c654, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 298869901b5589c438d87e69f710c654, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 298869901b5589c438d87e69f710c654, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -10887,7 +10887,7 @@ PrefabInstance:
       addedObject: {fileID: 4974267762720224057}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 298869901b5589c438d87e69f710c654, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 5832619743188348096}
+      addedObject: {fileID: 2461437202076900443}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 298869901b5589c438d87e69f710c654, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8833402200275938415}
@@ -10957,7 +10957,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 4
+  m_Speed: 5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 12000
@@ -10969,8 +10969,8 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!65 &5832619743188348096
-BoxCollider:
+--- !u!136 &2461437202076900443
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -10987,9 +10987,11 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.8802552, y: 1.542389, z: 0.54758644}
-  m_Center: {x: 0.017238379, y: 0.76863307, z: 0.13057566}
+  serializedVersion: 2
+  m_Radius: 0.4419694
+  m_Height: 1.7486827
+  m_Direction: 1
+  m_Center: {x: 0.004835874, y: 0.86276615, z: 0.18376374}
 --- !u!114 &8833402200275938415
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11002,8 +11004,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c20eb48aee69704a91ba8f8ae6b7360, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 150
-  _healRegenAmount: 0
+  _maxHealth: 200
+  _healRegenAmount: 2
   _autoHealDelay: 5
   _healRegenRate: 0.5
   _damageSpawnPoint: {fileID: 5221846192146477390}
@@ -11019,6 +11021,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca080a7f3abdf744a9c36f24927a7d09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HidableLayers:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!114 &4856025226093291425
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11039,7 +11044,7 @@ MonoBehaviour:
   _distanceToAttack: 1.5
   Enemy: {fileID: 0}
   DistanceToEnemy: 0
-  IsBlocked: 0
+  EnemyBlocked: 0
 --- !u!114 &1405752685600640574
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11053,11 +11058,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponType: 4
-  damage: 15
+  damage: 20
   fireRate: 1.25
   _fistSlashEffect: {fileID: 6165502279303474819}
   _clawSlashEffect: {fileID: 6677465038777750013}
-  _fistHitSound: {fileID: 8300000, guid: 4827fbf98a5198d45a996fbc8ff7bbbc, type: 3}
+  _fistHitSound: {fileID: 8300000, guid: ec66595a62fdd2a47a65538c324712cc, type: 3}
   _clawHitSound: {fileID: 8300000, guid: 22eab4df0bfb76b439118c30d20e43b9, type: 3}
 --- !u!82 &735046417929130432
 AudioSource:

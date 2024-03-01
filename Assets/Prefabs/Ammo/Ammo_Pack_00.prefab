@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 6959698452506132039}
   - component: {fileID: 3021290293001661108}
   - component: {fileID: 3219442578441670116}
-  - component: {fileID: 4605012300813539182}
   m_Layer: 0
   m_Name: Ammo_Pack_00
   m_TagString: Untagged
@@ -156,17 +155,3 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.47200003, y: 0.22600001, z: 0.21999992}
   m_Center: {x: 0, y: 0.113000005, z: -0.007910401}
---- !u!114 &4605012300813539182
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7145165998672086327}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18aa81f11daa32e46a7fee9a7f4b09ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _minReward: 2
-  _maxReward: 5

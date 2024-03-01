@@ -7,7 +7,7 @@ using UnityEngine.AI;
 [RequireComponent(typeof(VitalitySystem))]
 [RequireComponent(typeof(EnemyTracker))]
 
-public class EnemyActions : MonoBehaviour
+public class BotActions : MonoBehaviour
 {
     private WeaponMain _weaponMain;
     private EnemyTracker _enemyTracker;
@@ -16,14 +16,15 @@ public class EnemyActions : MonoBehaviour
 
     [SerializeField] public LayerMask HidableLayers;
     private Collider[] HidableColliders = new Collider[10];
-    private Coroutine GetHideCoroutine;
-    private Coroutine AttackCoroutine;
+    private float _attackDelay;
+    private float _searchDelay;
 
     public bool CanChase => _enemyTracker.DistanceToEnemy <= _enemyTracker.DistanceToChase;
     public bool CanAttack => _enemyTracker.DistanceToEnemy <= _enemyTracker.DistanceToAttack && !_enemyTracker.EnemyBlocked;
     public bool TargetLost => _enemyTracker.DistanceToEnemy > _enemyTracker.DistanceToChase || _enemyTracker.Enemy != null;
     public bool EnemyAlive => _enemyTracker.Enemy != null;
     public bool LowHealth => _vitalitySystem.CurrentHealth <= _vitalitySystem.MaxHealth * 0.5f;
+    public bool EnemyNearDeath => _enemyTracker.IsEnemyNearDeath;
 
     public StateMachine StateMachine { get; set; }
     public SearchState SearchState { get; set; }
@@ -48,6 +49,7 @@ public class EnemyActions : MonoBehaviour
     {
         StateMachine.Initialize(SearchState);
         _vitalitySystem.OnDeath += DeathState;
+        _attackDelay = _weaponMain.FireRate;
     }
 
     private void Update()
@@ -55,7 +57,7 @@ public class EnemyActions : MonoBehaviour
         if (StateMachine.CurrentState != null)
         {
             StateMachine.CurrentState.UpdateState();
-            _agent.velocity = _agent.desiredVelocity;
+            _agent.velocity = _agent.desiredVelocity; 
         }
     }
 
@@ -70,70 +72,58 @@ public class EnemyActions : MonoBehaviour
     }
     public void Attack()
     {
-        if (AttackCoroutine != null)
-            StopCoroutine(AttackCoroutine);
+        _agent.SetDestination(transform.position);
+        _agent.transform.LookAt(_enemyTracker.Enemy.position);
 
-        if (EnemyAlive)
-            AttackCoroutine = StartCoroutine(AttackAction(_enemyTracker.Enemy));
+        _attackDelay += Time.deltaTime;
+        if (_attackDelay >= _weaponMain.FireRate)
+        {
+            _weaponMain.Shoot();
+            _attackDelay = 0;
+        }
     }
     public void Hide()
     {
-        if (GetHideCoroutine != null)
-            StopCoroutine(GetHideCoroutine);
-
-        if (EnemyAlive)
-            GetHideCoroutine = StartCoroutine(GetCoverAction(_enemyTracker.Enemy));
-    }
-    private IEnumerator AttackAction(Transform Target)
-    {
-        WaitForSeconds Wait = new WaitForSeconds(_weaponMain.FireRate);
-        while (true)
+        _searchDelay += Time.deltaTime;
+        if (_searchDelay >= 0.15f)
         {
-            _agent.SetDestination(transform.position);
-            _agent.transform.LookAt(Target.position);
-            _weaponMain.Shoot();
-            break;
+            GetCover();
+            _searchDelay = 0;
         }
-        yield return Wait;
     }
-    private IEnumerator GetCoverAction(Transform Target)
+    private void GetCover()
     {
-        WaitForSeconds Wait = new WaitForSeconds(0.2f);
-        while (true)
+        for (int i = 0; i < HidableColliders.Length; i++)
+            HidableColliders[i] = null;
+
+        int hits = Physics.OverlapSphereNonAlloc(transform.position, _enemyTracker.DistanceToCheck, HidableColliders, HidableLayers);
+
+        int hitReduction = 0;
+        for (int i = 0; i < hits; i++)
         {
-            for (int i = 0; i < HidableColliders.Length; i++)
+            if (Vector3.Distance(HidableColliders[i].transform.position, _enemyTracker.Enemy.position) < _enemyTracker.DistanceToChase)
+            {
                 HidableColliders[i] = null;
+                hitReduction++;
+            }
+        }
+        hits -= hitReduction;
+        System.Array.Sort(HidableColliders, ColliderArraySortComparer);
 
-            int hits = Physics.OverlapSphereNonAlloc(transform.position, _enemyTracker.DistanceToCheck, HidableColliders, HidableLayers);
-
-            int hitReduction = 0;
-            for (int i = 0; i < hits; i++)
+        for (int i = 0; i < hits; i++)
+        {
+            if (NavMesh.SamplePosition(HidableColliders[i].transform.position, out NavMeshHit hit, 2f, _agent.areaMask))
             {
-                if (Vector3.Distance(HidableColliders[i].transform.position, Target.position) < _enemyTracker.DistanceToChase)
+                if (!NavMesh.FindClosestEdge(hit.position, out hit, _agent.areaMask))
                 {
-                    HidableColliders[i] = null;
-                    hitReduction++;
+                    Debug.LogError($"Unable to find edge close to {hit.position}");
+                }
+                if (Vector3.Dot(hit.normal, (_enemyTracker.Enemy.position - hit.position).normalized) < 0 && !_agent.hasPath)
+                {
+                    _agent.SetDestination(hit.position);
+                    break;
                 }
             }
-            hits -= hitReduction;
-            System.Array.Sort(HidableColliders, ColliderArraySortComparer);
-
-            for (int i = 0; i < hits; i++)
-            {
-                if (NavMesh.SamplePosition(HidableColliders[i].transform.position, out NavMeshHit hit, 2f, _agent.areaMask))
-                {
-                    if (!NavMesh.FindClosestEdge(hit.position, out hit, _agent.areaMask))
-                    {
-                        Debug.LogError($"Unable to find edge close to {hit.position}");
-                    }
-                    if (Vector3.Dot(hit.normal, (Target.position - hit.position).normalized) < 0 && !_agent.hasPath)
-                    {
-                        _agent.SetDestination(hit.position);
-                        break;
-                    }
-                }
-            }
-            yield return Wait;
         }
     }
     private int ColliderArraySortComparer(Collider A, Collider B)
@@ -155,5 +145,9 @@ public class EnemyActions : MonoBehaviour
             return Vector3.Distance(transform.position, A.transform.position).CompareTo(Vector3.Distance(transform.position, B.transform.position));
         }
     }
-    private void DeathState() => StateMachine.CurrentState = null;
+    private void DeathState()
+    {
+        StateMachine.CurrentState = null;
+        _agent.SetDestination(transform.position);
+    }
 }

@@ -553,7 +553,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ef98086c7ea2f234d9bdde1211b3bea9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -27.2
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ef98086c7ea2f234d9bdde1211b3bea9, type: 3}
       propertyPath: m_LocalPosition.y
@@ -561,7 +561,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ef98086c7ea2f234d9bdde1211b3bea9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 26.1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ef98086c7ea2f234d9bdde1211b3bea9, type: 3}
       propertyPath: m_LocalRotation.w
@@ -569,15 +569,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ef98086c7ea2f234d9bdde1211b3bea9, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ef98086c7ea2f234d9bdde1211b3bea9, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ef98086c7ea2f234d9bdde1211b3bea9, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ef98086c7ea2f234d9bdde1211b3bea9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1527,7 +1527,7 @@ PrefabInstance:
       addedObject: {fileID: 8478268507787782648}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ef98086c7ea2f234d9bdde1211b3bea9, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7804719028502243275}
+      addedObject: {fileID: 6081944660386954597}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ef98086c7ea2f234d9bdde1211b3bea9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4783499164645432120}
@@ -1585,8 +1585,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b24c45b218671bf4aabcf8d409fbacf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!65 &7804719028502243275
-BoxCollider:
+--- !u!136 &6081944660386954597
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1603,9 +1603,11 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.5564456, y: 1.8358934, z: 0.48674393}
-  m_Center: {x: -0.0031683445, y: 0.92162406, z: -0.015841484}
+  serializedVersion: 2
+  m_Radius: 0.2811823
+  m_Height: 1.8061707
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.8906268, z: 0.030711174}
 --- !u!195 &4783499164645432120
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1616,7 +1618,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 1
-  m_Speed: 0
+  m_Speed: 5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 12000
@@ -1640,7 +1642,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c20eb48aee69704a91ba8f8ae6b7360, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 150
+  _maxHealth: 100
   _healRegenAmount: 2
   _autoHealDelay: 5
   _healRegenRate: 0.5
@@ -1657,6 +1659,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca080a7f3abdf744a9c36f24927a7d09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HidableLayers:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!114 &5872858611135526809
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1674,10 +1679,10 @@ MonoBehaviour:
     m_Bits: 8
   _distanceToCheck: 15
   _distanceToChase: 11
-  _distanceToAttack: 8
+  _distanceToAttack: 9
   Enemy: {fileID: 0}
   DistanceToEnemy: 0
-  IsBlocked: 0
+  EnemyBlocked: 0
 --- !u!114 &5299564065886504632
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1691,8 +1696,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponType: 2
-  damage: 1
-  fireRate: 1.5
+  damage: 12
+  fireRate: 1
   weaponMuzzle: {fileID: 6944673555721206461}
   projectilePrefab: {fileID: 6965950164403759309, guid: 3857fbaf79ec0d94b8142f312d0ca5ff, type: 3}
   muzzleFlash: {fileID: 4564339502516943633}
@@ -1700,7 +1705,7 @@ MonoBehaviour:
   bulletSpeed: 20
   bulletsPerShot: 2
   timeBetweenShots: 0.02
-  clipReloadTime: 5
+  clipReloadTime: 4
   _fire: {fileID: 8300000, guid: f952725c1e045db48a5d3b3493f9ba9d, type: 3}
 --- !u!82 &8518407780302190108
 AudioSource:

@@ -8,12 +8,12 @@ public abstract class WeaponMain : MonoBehaviour
     [Header("Basic values")]
     [SerializeField] protected WeaponType weaponType;
     [SerializeField] protected int damage;
-    [SerializeField] protected float fireRate;
+    [SerializeField] private float fireRate;
 
     protected DamageInfo damageInfo;
     protected float attackTimer;
-    public float FireRate { get; protected set; }
     public float CurrentAmmo { get; protected set; }
+    public float FireRate => fireRate;
 
     public event Action OnShoot;
     public event Action OnReload;
@@ -26,7 +26,6 @@ public abstract class WeaponMain : MonoBehaviour
     public void CallOnClawAttack() => OnClawAttack?.Invoke();
 
     protected void Awake() => GetComponent<VitalitySystem>().OnRegister += DamagerInfo;
-    private void Update() => attackTimer += Time.deltaTime;
     public abstract void Shoot();
     private void DamagerInfo(int id) => damageInfo = new DamageInfo(id, gameObject.name, weaponType, damage);
 }

@@ -23,10 +23,7 @@ public class ObjectPool : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        CreatePool();
-    }
+    private void Start() => CreatePool();
 
     private void CreatePool()
     {

@@ -1,13 +1,12 @@
-using UnityEngine;
 
 public class BaseState
 {
-    protected EnemyActions _enemyActions;
+    protected BotActions _botActions;
     protected StateMachine _stateMachine;
 
-    public BaseState(EnemyActions enemyActions, StateMachine stateMachine)
+    public BaseState(BotActions botActions, StateMachine stateMachine)
     {
-        _enemyActions = enemyActions;
+        _botActions = botActions;
         _stateMachine = stateMachine;
     }
 

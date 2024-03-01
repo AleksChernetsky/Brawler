@@ -23,21 +23,18 @@ public class MeleeWeapon : WeaponMain
     }
 
     public override void Shoot()
-    {
-        if (attackTimer >= FireRate)
+    {        
+        if (AttackCount == 0)
         {
-            if (AttackCount == 0)
-            {
-                CallOnFistAttack();
-                AttackCount++;
-                attackTimer = 0;
-            }
-            else if (AttackCount == 1)
-            {
-                CallOnClawAttack();
-                AttackCount--;
-                attackTimer = 0;
-            }
+            CallOnFistAttack();
+            AttackCount++;
+            attackTimer = 0;
+        }
+        else if (AttackCount == 1)
+        {
+            CallOnClawAttack();
+            AttackCount--;
+            attackTimer = 0;
         }
     }
     private void Hit() // call in melee attack animations events

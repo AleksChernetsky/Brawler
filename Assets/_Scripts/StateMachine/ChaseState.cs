@@ -1,6 +1,6 @@
 ﻿public class ChaseState : BaseState
 {
-    public ChaseState(EnemyActions enemyActions, StateMachine stateMachine) : base(enemyActions, stateMachine) { }
+    public ChaseState(BotActions botActions, StateMachine stateMachine) : base(botActions, stateMachine) { }
 
     public override void EnterState()
     {
@@ -8,21 +8,21 @@
     }
     public override void UpdateState()
     {
-        if (_enemyActions.EnemyAlive && _enemyActions.CanAttack && !_enemyActions.LowHealth)
+        if (_botActions.LowHealth)
         {
-            _stateMachine.SwitchState(_enemyActions.AttackState);
+            _stateMachine.SwitchState(_botActions.HideState);
         }
-        else if (_enemyActions.EnemyAlive && _enemyActions.CanChase && !_enemyActions.LowHealth)
+        else if (_botActions.EnemyAlive && !_botActions.CanAttack)
         {
-            _enemyActions.Chase();
+            _botActions.Chase();
         }
-        else if (_enemyActions.EnemyAlive && _enemyActions.TargetLost)
+        else if (_botActions.EnemyAlive && _botActions.CanAttack)
         {
-            _stateMachine.SwitchState(_enemyActions.SearchState);
+            _stateMachine.SwitchState(_botActions.AttackState);
         }
-        else if (_enemyActions.LowHealth == true)
+        else if (!_botActions.EnemyAlive || _botActions.TargetLost)
         {
-            _stateMachine.SwitchState(_enemyActions.HideState);
+            _stateMachine.SwitchState(_botActions.SearchState);
         }
     }
     public override void ExitState()

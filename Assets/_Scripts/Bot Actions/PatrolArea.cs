@@ -4,13 +4,9 @@ using UnityEngine.AI;
 public class PatrolArea : MonoBehaviour
 {
     public static PatrolArea Instance;
-
     public float Range;
 
-    private void Awake()
-    {
-        Instance = this;
-    }
+    private void Awake() => Instance = this;
 
     bool RandomPoint(Vector3 center, float range, out Vector3 result)
     {

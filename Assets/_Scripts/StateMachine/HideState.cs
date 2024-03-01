@@ -1,6 +1,6 @@
 ﻿public class HideState : BaseState
 {
-    public HideState(EnemyActions enemyActions, StateMachine stateMachine) : base(enemyActions, stateMachine) { }
+    public HideState(BotActions botActions, StateMachine stateMachine) : base(botActions, stateMachine) { }
 
     public override void EnterState()
     {
@@ -8,10 +8,17 @@
     }
     public override void UpdateState()
     {
-        _enemyActions.Hide();
-        if (!_enemyActions.LowHealth)
+        if (_botActions.LowHealth)
         {
-            _stateMachine.SwitchState(_enemyActions.SearchState);
+            _botActions.Hide();
+        }
+        else if(_botActions.EnemyAlive && _botActions.EnemyNearDeath)
+        {
+            _stateMachine.SwitchState(_botActions.AttackState);
+        }
+        else
+        {
+            _stateMachine.SwitchState(_botActions.SearchState);
         }
     }
     public override void ExitState()

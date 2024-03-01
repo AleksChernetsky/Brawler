@@ -23,7 +23,6 @@ public class CharacterDataManager : MonoBehaviour
         _registeredCharacters.Add(characterData._id, characterData);
         EventManager.CallOnCharRegister();
         _currentID++;
-        //Debug.Log($"ID: {characterData._id}, Name: {characterData._vitalitySystem.name} added");
         return characterData._id;
     }
     public void CharDelete(int id)
@@ -31,7 +30,6 @@ public class CharacterDataManager : MonoBehaviour
         CharacterData characterData = _registeredCharacters[id];
         _registeredCharacters.Remove(characterData._id);
         EventManager.CallOnCharDelete();
-        //Debug.Log($"ID: {characterData._id} Name: {characterData._vitalitySystem.name} deleted");
     }
 }
 

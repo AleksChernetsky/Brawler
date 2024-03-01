@@ -34,7 +34,7 @@ public class AutomaticWeapon : WeaponMain
 
     public override void Shoot()
     {
-        if (attackTimer >= FireRate && clipsLeft > 0)
+        if (clipsLeft > 0)
         {
             StartCoroutine(Fire());
             clipsLeft--;
