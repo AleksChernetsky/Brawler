@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 
+using Unity.VisualScripting;
+
 using UnityEngine;
 
 public class CharacterDataManager : MonoBehaviour
@@ -27,9 +29,12 @@ public class CharacterDataManager : MonoBehaviour
     }
     public void CharDelete(int id)
     {
-        CharacterData characterData = _registeredCharacters[id];
-        _registeredCharacters.Remove(characterData._id);
-        EventManager.CallOnCharDelete();
+        if (_registeredCharacters.ContainsKey(id))
+        {
+            CharacterData characterData = _registeredCharacters[id];
+            _registeredCharacters.Remove(characterData._id);
+            EventManager.CallOnCharDelete();
+        }
     }
 }
 

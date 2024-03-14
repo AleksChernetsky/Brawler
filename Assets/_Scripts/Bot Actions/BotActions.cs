@@ -57,7 +57,7 @@ public class BotActions : MonoBehaviour
         if (StateMachine.CurrentState != null)
         {
             StateMachine.CurrentState.UpdateState();
-            _agent.velocity = _agent.desiredVelocity; 
+            _agent.velocity = _agent.desiredVelocity;
         }
     }
 
@@ -101,10 +101,21 @@ public class BotActions : MonoBehaviour
         int hitReduction = 0;
         for (int i = 0; i < hits; i++)
         {
-            if (Vector3.Distance(HidableColliders[i].transform.position, _enemyTracker.Enemy.position) < _enemyTracker.DistanceToChase)
+            if (hits > 0)
             {
-                HidableColliders[i] = null;
-                hitReduction++;
+                if (Vector3.Distance(HidableColliders[i].transform.position, _enemyTracker.Enemy.position) < _enemyTracker.DistanceToChase)
+                {
+                    HidableColliders[i] = null;
+                    hitReduction++;
+                }
+                else
+                {
+                    Debug.Log(("error", gameObject.name));
+                }
+            }
+            else
+            {
+                 Debug.Log($"{hits} = 0");
             }
         }
         hits -= hitReduction;

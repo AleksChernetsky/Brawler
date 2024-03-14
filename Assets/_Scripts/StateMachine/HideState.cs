@@ -8,13 +8,13 @@
     }
     public override void UpdateState()
     {
-        if (_botActions.LowHealth)
-        {
-            _botActions.Hide();
-        }
-        else if(_botActions.EnemyAlive && _botActions.EnemyNearDeath)
+        if(_botActions.EnemyAlive && _botActions.EnemyNearDeath)
         {
             _stateMachine.SwitchState(_botActions.AttackState);
+        }
+        else if (_botActions.LowHealth)
+        {
+            _botActions.Hide();
         }
         else
         {
