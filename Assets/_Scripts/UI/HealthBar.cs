@@ -6,7 +6,7 @@ public class HealthBar : MonoBehaviour
     [SerializeField] protected Image _progressBar;
     protected Animator _anim;
 
-    private VitalitySystem _vitalitySystem;
+    protected VitalitySystem _vitalitySystem;
     private Canvas _parentCanvas;
     private Camera _camera;
 
@@ -16,6 +16,7 @@ public class HealthBar : MonoBehaviour
         _parentCanvas = GetComponentInParent<Canvas>();
         _vitalitySystem = GetComponentInParent<VitalitySystem>();
         _camera = Camera.main;
+
         _vitalitySystem.OnTakingHit += ChangeHPBar;
         _vitalitySystem.OnHealing += ChangeHPBar;
         _vitalitySystem.OnDeath += DestroyBar;
@@ -31,7 +32,10 @@ public class HealthBar : MonoBehaviour
         _progressBar.fillAmount = _vitalitySystem.HealthPercentage;
         _anim.SetTrigger("TakeHit");
     }
-    public virtual void DestroyBar() => Destroy(gameObject);
+    public virtual void DestroyBar()
+    {
+        Destroy(gameObject);
+    }
 
     private void OnDestroy()
     {

@@ -9,8 +9,12 @@ public class AmmoBar : HealthBar
     {
         _anim = GetComponent<Animator>();
         _weaponMain = GetComponentInParent<WeaponMain>();
+        _vitalitySystem = GetComponentInParent<VitalitySystem>();
+
         _weaponMain.OnShoot += ChangeAmmoBar;
         _weaponMain.OnReload += ChangeAmmoBar;
+
+        _vitalitySystem.OnDeath += DestroyBar;
     }
     private void ChangeAmmoBar()
     {

@@ -22,9 +22,9 @@ public class Projectile : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.TryGetComponent(out VitalitySystem vitalitySystem))
+        if (other.gameObject.TryGetComponent(out VitalitySystem vitalitySystem))
         {
             vitalitySystem.TakeDamage(DamageInfo);
             ResetProjectile();
