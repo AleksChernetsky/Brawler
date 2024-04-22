@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 7849671733128983780}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0.217}
+  m_LocalPosition: {x: 0, y: -0, z: 0.555}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -65,7 +65,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ad1bb1e6033051e4a977e7a7edf40a79, type: 2}
+  - {fileID: 2100000, guid: 9278b9a26840b443386bdc0f8e7de555, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -170,7 +170,7 @@ TrailRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f295d5bc3292fd14faa78b5122965ada, type: 2}
+  - {fileID: 2100000, guid: caba1699a2d26ae44baa56e143aa09cf, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -202,20 +202,20 @@ TrailRenderer:
       - serializedVersion: 3
         time: 0
         value: 1
-        inSlope: 0
-        outSlope: 0
+        inSlope: -1.0947627
+        outSlope: -1.0947627
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
-        outWeight: 0.33333334
+        outWeight: 0.14589664
       - serializedVersion: 3
         time: 1
-        value: 0.5486069
-        inSlope: -1.6220464
-        outSlope: -1.6220464
+        value: 0
+        inSlope: -2.6207087
+        outSlope: -2.6207087
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0.14984709
+        inWeight: 0.10334355
         outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2

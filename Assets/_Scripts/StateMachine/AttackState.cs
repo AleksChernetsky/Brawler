@@ -8,7 +8,7 @@
     }
     public override void UpdateState()
     {
-        if (_botActions.LowHealth && !_botActions.EnemyNearDeath)
+        if (_botActions.LowHealth && !_botActions.EnemyNearDeath || !_botActions.HasAmmo)
         {
             _stateMachine.SwitchState(_botActions.HideState);
         }

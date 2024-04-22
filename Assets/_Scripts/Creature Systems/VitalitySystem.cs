@@ -36,6 +36,7 @@ public class VitalitySystem : MonoBehaviour, IDamageable
     public float MaxHealth => _maxHealth;
     public float CurrentHealth { get; private set; }
     public float HealthPercentage { get; private set; }
+    public string KillerName { get; private set; } // who killed this gameobject
 
     public event Action OnDeath;
     public event Action OnTakingHit;
@@ -65,6 +66,7 @@ public class VitalitySystem : MonoBehaviour, IDamageable
         }
         else if (CurrentHealth <= 0)
         {
+            KillerName = info.DamagerName;
             OnDeath?.Invoke();
             Die();
         }

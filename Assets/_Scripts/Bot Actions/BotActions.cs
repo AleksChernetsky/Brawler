@@ -7,12 +7,13 @@ using UnityEngine.AI;
 
 public class BotActions : MonoBehaviour
 {
+    [SerializeField] public LayerMask HidableLayers;
+
     private WeaponMain _weaponMain;
     private EnemyTracker _enemyTracker;
     private NavMeshAgent _agent;
     private VitalitySystem _vitalitySystem;
 
-    [SerializeField] public LayerMask HidableLayers;
     private Collider[] HidableColliders = new Collider[10];
     private float _attackDelay;
     private float _searchDelay;
@@ -23,6 +24,7 @@ public class BotActions : MonoBehaviour
     public bool EnemyAlive => _enemyTracker.Enemy != null;
     public bool LowHealth => _vitalitySystem.CurrentHealth <= _vitalitySystem.MaxHealth * 0.5f;
     public bool EnemyNearDeath => _enemyTracker.IsEnemyNearDeath;
+    public bool HasAmmo => _weaponMain.CurrentAmmo > 0;
 
     public StateMachine StateMachine { get; set; }
     public SearchState SearchState { get; set; }
@@ -66,7 +68,8 @@ public class BotActions : MonoBehaviour
     }
     public void Chase()
     {
-        _agent.SetDestination(_enemyTracker.Enemy.position);
+        if (EnemyAlive)
+            _agent.SetDestination(_enemyTracker.Enemy.position);
     }
     public void Attack()
     {
@@ -74,7 +77,7 @@ public class BotActions : MonoBehaviour
         _agent.transform.LookAt(_enemyTracker.Enemy.position);
 
         _attackDelay += Time.deltaTime;
-        if (_attackDelay >= _weaponMain.FireRate)
+        if (_attackDelay >= _weaponMain.FireRate && EnemyAlive)
         {
             _weaponMain.Shoot();
             _attackDelay = 0;
@@ -83,7 +86,7 @@ public class BotActions : MonoBehaviour
     public void Hide()
     {
         _searchDelay += Time.deltaTime;
-        if (_searchDelay >= 0.15f)
+        if (_searchDelay >= 0.15f && EnemyAlive)
         {
             GetCover();
             _searchDelay = 0;
@@ -106,14 +109,6 @@ public class BotActions : MonoBehaviour
                     HidableColliders[i] = null;
                     hitReduction++;
                 }
-                else
-                {
-                    Debug.Log(("error", gameObject.name));
-                }
-            }
-            else
-            {
-                 Debug.Log($"{hits} = 0");
             }
         }
         hits -= hitReduction;
@@ -157,6 +152,6 @@ public class BotActions : MonoBehaviour
     private void DeathState()
     {
         StateMachine.CurrentState = null;
-        _agent.SetDestination(transform.position);
+        _agent.isStopped = true;
     }
 }

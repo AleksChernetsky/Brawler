@@ -1,53 +1,34 @@
+using System;
+
 using UnityEngine;
-using UnityEngine.AI;
 using UnityEngine.InputSystem.EnhancedTouch;
 
 using ETouch = UnityEngine.InputSystem.EnhancedTouch;
 
 public class JoysticksHandler : MonoBehaviour
 {
-    [SerializeField] private RectTransform _movementJoystickBackGround;
-    [SerializeField] private RectTransform _combatJoystickBackGround;
-    [SerializeField] private GameObject _shootDirection;
+    [SerializeField] private RectTransform _moveJoystickBG;
+    [SerializeField] private RectTransform _combatJoystickBG;
 
-    private WeaponMain _weaponMain;
+    private Joystick _joystick;
 
-    private Vector2 _movementJoystickStartPosition;
+    private Vector2 _moveJoystickStartPosition;
     private Vector2 _combatJoystickStartPosition;
 
-    private AnimationHandler _animHandler;
-    private Joystick _joystick;
-    private NavMeshAgent _agent;
+    public bool IsAiming { get; private set; }
+    public Vector2 MoveDirection => _joystick.GamePlay.Movement.ReadValue<Vector2>();
+    public Vector2 RotateDirection => _joystick.GamePlay.Combat.ReadValue<Vector2>();
 
-    private bool IsAiming;
+    public event Action OnCombatJoystickUp;
 
     private void Awake()
     {
-        _agent = GetComponent<NavMeshAgent>();
-        _animHandler = GetComponent<AnimationHandler>();
-        _weaponMain  = GetComponent<WeaponMain>();
-
         _joystick = new Joystick();
         _joystick.Enable();
 
-        _movementJoystickStartPosition = _movementJoystickBackGround.anchoredPosition;
-        _combatJoystickStartPosition = _combatJoystickBackGround.anchoredPosition;
+        _moveJoystickStartPosition = _moveJoystickBG.anchoredPosition;
+        _combatJoystickStartPosition = _combatJoystickBG.anchoredPosition;
     }
-
-    private void Update()
-    {
-        if (!IsAiming)
-        {
-            MoveCharacter();
-        }
-        else
-        {
-            RotateToShoot();
-        }
-    }
-
-    //-----------------------------------------------------------------------------------------------------------------
-
     private void OnEnable()
     {
         EnhancedTouchSupport.Enable();
@@ -62,51 +43,27 @@ public class JoysticksHandler : MonoBehaviour
         EnhancedTouchSupport.Disable();
     }
 
-    //-----------------------------------------------------------------------------------------------------------------
-
     private void OnJoystickDown(Finger touchedFinger)
     {
         if (touchedFinger.screenPosition.x <= Screen.width / 2)
         {
-            _movementJoystickBackGround.anchoredPosition = touchedFinger.screenPosition;
+            _moveJoystickBG.position = touchedFinger.screenPosition;
         }
         else
         {
+            _combatJoystickBG.position = touchedFinger.screenPosition;
             IsAiming = true;
-            _combatJoystickBackGround.anchoredPosition = touchedFinger.screenPosition;
         }
     }
     private void OnJoystickUp(Finger releasedFinger)
     {
-        _movementJoystickBackGround.anchoredPosition = _movementJoystickStartPosition;
-        _combatJoystickBackGround.anchoredPosition = _combatJoystickStartPosition;
+        _moveJoystickBG.anchoredPosition = _moveJoystickStartPosition;
+        _combatJoystickBG.anchoredPosition = _combatJoystickStartPosition;
 
         if (IsAiming)
         {
-            Shoot();
+            OnCombatJoystickUp?.Invoke();
+            IsAiming = false;
         }
-    }
-
-    //-----------------------------------------------------------------------------------------------------------------
-
-    private void MoveCharacter()
-    {
-        var inputDirection = _joystick.GamePlay.Movement.ReadValue<Vector2>();
-        _agent.destination = transform.position + new Vector3(inputDirection.x, 0, inputDirection.y);
-        _agent.velocity = _agent.desiredVelocity;
-        transform.LookAt(_agent.destination);
-    }
-    public void RotateToShoot()
-    {
-        var inputDirection = _joystick.GamePlay.Combat.ReadValue<Vector2>();
-        transform.LookAt(transform.position + new Vector3(inputDirection.x, 0, inputDirection.y), Vector3.up);
-        _shootDirection.SetActive(true);
-        _animHandler.PlayAimmingAnim();
-    }
-    private void Shoot()
-    {
-        _weaponMain.Shoot();
-        _shootDirection.SetActive(false);
-        IsAiming = false;
     }
 }

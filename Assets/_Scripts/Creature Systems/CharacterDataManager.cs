@@ -1,7 +1,4 @@
 ﻿using System.Collections.Generic;
-
-using Unity.VisualScripting;
-
 using UnityEngine;
 
 public class CharacterDataManager : MonoBehaviour
@@ -23,7 +20,7 @@ public class CharacterDataManager : MonoBehaviour
     {
         CharacterData characterData = new CharacterData { _id = _currentID, _vitalitySystem = vitalitySystem };
         _registeredCharacters.Add(characterData._id, characterData);
-        EventManager.CallOnCharRegister();
+        GlobalEventsManager.OnCharRegister?.Invoke();
         _currentID++;
         return characterData._id;
     }
@@ -33,7 +30,8 @@ public class CharacterDataManager : MonoBehaviour
         {
             CharacterData characterData = _registeredCharacters[id];
             _registeredCharacters.Remove(characterData._id);
-            EventManager.CallOnCharDelete();
+            GlobalEventsManager.OnCharDelete?.Invoke();
+            GlobalEventsManager.OnCharDeath?.Invoke(characterData._vitalitySystem.name, characterData._vitalitySystem.KillerName);
         }
     }
 }

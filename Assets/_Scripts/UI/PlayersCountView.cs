@@ -10,8 +10,8 @@ public class PlayersCountView : MonoBehaviour
 
     private void Awake()
     {
-        EventManager.OnCharRegister.AddListener(Increase);
-        EventManager.OnCharDelete.AddListener(Decrease);
+        GlobalEventsManager.OnCharRegister.AddListener(Increase);
+        GlobalEventsManager.OnCharDelete.AddListener(Decrease);
         _countText = GetComponent<TextMeshProUGUI>();
     }
     private void Increase()

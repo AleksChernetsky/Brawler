@@ -1270,7 +1270,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 21b46d034c8570d4f905e7e112adf0f0, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 21b46d034c8570d4f905e7e112adf0f0, type: 3}
       propertyPath: m_TagString
@@ -1882,7 +1882,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 2463584477507426876}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 0.7
   m_Speed: 5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -1910,14 +1910,14 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.41122437
-  m_Height: 2.0855951
+  m_Radius: 0.4442835
+  m_Height: 2.1672695
   m_Direction: 1
-  m_Center: {x: -0.020292282, y: 1.0399392, z: 0.027900696}
+  m_Center: {x: -0.004734993, y: 1.0807763, z: 0.037623405}
 --- !u!114 &5632290508636513601
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1990,7 +1990,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 6965950164403759309, guid: 3857fbaf79ec0d94b8142f312d0ca5ff, type: 3}
   muzzleFlash: {fileID: 6661093951499755344}
   baseSpread: 15
-  bulletSpeed: 12
+  bulletSpeed: 15
   bulletsPerShot: 15
   timeBetweenShots: 0
   clipReloadTime: 4
@@ -2007,7 +2007,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 3971071669006715332, guid: fde7beae796c09142ada2849c3eed0fe, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.5
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -2016,7 +2016,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 10
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
