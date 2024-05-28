@@ -2428,19 +2428,19 @@ PrefabInstance:
       addedObject: {fileID: 2898225683862312890}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8a236ee3c4b6a4745a467ebf25cf1a07, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2187643343553643236}
+      addedObject: {fileID: 3412030053204741655}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8a236ee3c4b6a4745a467ebf25cf1a07, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3412030053204741655}
+      addedObject: {fileID: 2187643343553643236}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8a236ee3c4b6a4745a467ebf25cf1a07, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5062373282672306314}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8a236ee3c4b6a4745a467ebf25cf1a07, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3611726885851780949}
+      addedObject: {fileID: 5165360100759991267}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8a236ee3c4b6a4745a467ebf25cf1a07, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 5165360100759991267}
+      addedObject: {fileID: 3611726885851780949}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8a236ee3c4b6a4745a467ebf25cf1a07, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5006570682933070677}
@@ -2496,6 +2496,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b24c45b218671bf4aabcf8d409fbacf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!195 &3412030053204741655
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6865313313565006247}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 12000
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 1
+  m_ObstacleAvoidanceType: 4
 --- !u!136 &2187643343553643236
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2519,28 +2541,6 @@ CapsuleCollider:
   m_Height: 1.7659664
   m_Direction: 1
   m_Center: {x: -0.008199692, y: 0.9514961, z: 0.008199692}
---- !u!195 &3412030053204741655
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6865313313565006247}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 12000
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 0
-  m_WalkableMask: 1
-  m_ObstacleAvoidanceType: 4
 --- !u!114 &5062373282672306314
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2558,21 +2558,7 @@ MonoBehaviour:
   _autoHealDelay: 5
   _healRegenRate: 0.5
   _damageSpawnPoint: {fileID: 7719113525341305835}
---- !u!114 &3611726885851780949
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6865313313565006247}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca080a7f3abdf744a9c36f24927a7d09, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HidableLayers:
-    serializedVersion: 2
-    m_Bits: 256
+  <Icon>k__BackingField: {fileID: 21300000, guid: f7347d33df838084da39f3d0a2cf9b25, type: 3}
 --- !u!114 &5165360100759991267
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2594,6 +2580,21 @@ MonoBehaviour:
   Enemy: {fileID: 0}
   DistanceToEnemy: 0
   EnemyBlocked: 0
+--- !u!114 &3611726885851780949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6865313313565006247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca080a7f3abdf744a9c36f24927a7d09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HidableLayers:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!114 &5006570682933070677
 MonoBehaviour:
   m_ObjectHideFlags: 0

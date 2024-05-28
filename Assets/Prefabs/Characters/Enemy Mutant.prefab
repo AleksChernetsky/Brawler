@@ -933,7 +933,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 298869901b5589c438d87e69f710c654, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 298869901b5589c438d87e69f710c654, type: 3}
       propertyPath: m_TagString
@@ -1184,10 +1184,10 @@ PrefabInstance:
       addedObject: {fileID: 8833402200275938415}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 298869901b5589c438d87e69f710c654, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3221099837996892550}
+      addedObject: {fileID: 4856025226093291425}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 298869901b5589c438d87e69f710c654, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4856025226093291425}
+      addedObject: {fileID: 3221099837996892550}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 298869901b5589c438d87e69f710c654, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1405752685600640574}
@@ -1300,21 +1300,7 @@ MonoBehaviour:
   _autoHealDelay: 5
   _healRegenRate: 0.5
   _damageSpawnPoint: {fileID: 5221846192146477390}
---- !u!114 &3221099837996892550
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4521007733909405502}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca080a7f3abdf744a9c36f24927a7d09, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HidableLayers:
-    serializedVersion: 2
-    m_Bits: 256
+  <Icon>k__BackingField: {fileID: 21300000, guid: 518697a5003458c4c856ce0bf199bb0b, type: 3}
 --- !u!114 &4856025226093291425
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1336,6 +1322,21 @@ MonoBehaviour:
   Enemy: {fileID: 0}
   DistanceToEnemy: 0
   EnemyBlocked: 0
+--- !u!114 &3221099837996892550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4521007733909405502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca080a7f3abdf744a9c36f24927a7d09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HidableLayers:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!114 &1405752685600640574
 MonoBehaviour:
   m_ObjectHideFlags: 0

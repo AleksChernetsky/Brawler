@@ -1537,10 +1537,10 @@ PrefabInstance:
       addedObject: {fileID: 3966587893169455524}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e2badb6afe2220644a534c929cac850e, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 9074936146172021147}
+      addedObject: {fileID: 5836936199556070185}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e2badb6afe2220644a534c929cac850e, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 5836936199556070185}
+      addedObject: {fileID: 9074936146172021147}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e2badb6afe2220644a534c929cac850e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6072906452497447568}
@@ -1632,21 +1632,7 @@ MonoBehaviour:
   _autoHealDelay: 5
   _healRegenRate: 0.5
   _damageSpawnPoint: {fileID: 4727470113108286692}
---- !u!114 &9074936146172021147
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2988042593580029402}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca080a7f3abdf744a9c36f24927a7d09, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HidableLayers:
-    serializedVersion: 2
-    m_Bits: 256
+  <Icon>k__BackingField: {fileID: 21300000, guid: 3cc96fd67debf6d4e9fbb4e72b2e1622, type: 3}
 --- !u!114 &5836936199556070185
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1668,6 +1654,21 @@ MonoBehaviour:
   Enemy: {fileID: 0}
   DistanceToEnemy: 0
   EnemyBlocked: 0
+--- !u!114 &9074936146172021147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2988042593580029402}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca080a7f3abdf744a9c36f24927a7d09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HidableLayers:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!114 &6072906452497447568
 MonoBehaviour:
   m_ObjectHideFlags: 0

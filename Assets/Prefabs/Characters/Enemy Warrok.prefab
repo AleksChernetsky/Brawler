@@ -1935,6 +1935,7 @@ MonoBehaviour:
   _autoHealDelay: 5
   _healRegenRate: 0.5
   _damageSpawnPoint: {fileID: 9106233036718320398}
+  <Icon>k__BackingField: {fileID: 21300000, guid: 4ecd72681fbbee845b4a36e3f88c5f8c, type: 3}
 --- !u!114 &2850300842473772997
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1073,7 +1073,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: ef98086c7ea2f234d9bdde1211b3bea9, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: ef98086c7ea2f234d9bdde1211b3bea9, type: 3}
       propertyPath: m_TagString
@@ -1527,19 +1527,19 @@ PrefabInstance:
       addedObject: {fileID: 8478268507787782648}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ef98086c7ea2f234d9bdde1211b3bea9, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6081944660386954597}
+      addedObject: {fileID: 4783499164645432120}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ef98086c7ea2f234d9bdde1211b3bea9, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4783499164645432120}
+      addedObject: {fileID: 6081944660386954597}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ef98086c7ea2f234d9bdde1211b3bea9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 9167520274951751373}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ef98086c7ea2f234d9bdde1211b3bea9, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 196707929705040869}
+      addedObject: {fileID: 5872858611135526809}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ef98086c7ea2f234d9bdde1211b3bea9, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 5872858611135526809}
+      addedObject: {fileID: 196707929705040869}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ef98086c7ea2f234d9bdde1211b3bea9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5299564065886504632}
@@ -1585,6 +1585,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b24c45b218671bf4aabcf8d409fbacf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!195 &4783499164645432120
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 71924317205005114}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 12000
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 1
+  m_ObstacleAvoidanceType: 4
 --- !u!136 &6081944660386954597
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1608,28 +1630,6 @@ CapsuleCollider:
   m_Height: 1.8061707
   m_Direction: 1
   m_Center: {x: 0, y: 0.8906268, z: 0.030711174}
---- !u!195 &4783499164645432120
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 71924317205005114}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 12000
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 0
-  m_WalkableMask: 1
-  m_ObstacleAvoidanceType: 4
 --- !u!114 &9167520274951751373
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1647,21 +1647,7 @@ MonoBehaviour:
   _autoHealDelay: 5
   _healRegenRate: 0.5
   _damageSpawnPoint: {fileID: 1858899839403463001}
---- !u!114 &196707929705040869
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 71924317205005114}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca080a7f3abdf744a9c36f24927a7d09, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HidableLayers:
-    serializedVersion: 2
-    m_Bits: 256
+  <Icon>k__BackingField: {fileID: 21300000, guid: 602ad9c757580d3449991d8b7e9b4a77, type: 3}
 --- !u!114 &5872858611135526809
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1683,6 +1669,21 @@ MonoBehaviour:
   Enemy: {fileID: 0}
   DistanceToEnemy: 0
   EnemyBlocked: 0
+--- !u!114 &196707929705040869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 71924317205005114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca080a7f3abdf744a9c36f24927a7d09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HidableLayers:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!114 &5299564065886504632
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1696,7 +1697,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponType: 2
-  damage: 12
+  damage: 17
   fireRate: 1
   weaponMuzzle: {fileID: 6944673555721206461}
   projectilePrefab: {fileID: 6965950164403759309, guid: 3857fbaf79ec0d94b8142f312d0ca5ff, type: 3}
