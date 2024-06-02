@@ -1,4 +1,6 @@
-﻿using TMPro;
+﻿using System;
+
+using TMPro;
 
 using UnityEngine;
 
@@ -7,6 +9,8 @@ public class PlayersCountView : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _countText;
     [SerializeField] private string _template;
     private int _count;
+
+    public event Action OnOneEnemyLeft;
 
     private void Awake()
     {
@@ -22,6 +26,11 @@ public class PlayersCountView : MonoBehaviour
     {
         _count--;
         SetCount();
+
+        if (_count <= 1)
+        {
+            OnOneEnemyLeft?.Invoke();
+        }
     }
     public void SetCount() => _countText.text = string.Format(_template, _count);
 }

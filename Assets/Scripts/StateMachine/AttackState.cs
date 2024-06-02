@@ -10,7 +10,7 @@ public class AttackState : BaseState
     }
     public override void UpdateState()
     {
-        if (_botActions.LowHealth)
+        if (_botActions.LowHealth || !_botActions.HasAmmo)
         {
             if (_botActions.HasAmmo && _botActions.EnemyNearDeath && _botActions.CanAttack)
             {

@@ -20,6 +20,8 @@ public class MeleeWeapon : WeaponMain
         _enemyTracker = GetComponent<EnemyTracker>();
         _audioSource = GetComponent<AudioSource>();
         AttackCount = 0;
+
+        CurrentAmmo = 1; // means melee weapon always has ammo
     }
 
     public override void Shoot()

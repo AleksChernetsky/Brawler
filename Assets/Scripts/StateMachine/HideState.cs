@@ -8,17 +8,20 @@
     }
     public override void UpdateState()
     {
-        if (!_botActions.LowHealth && _botActions.HasAmmo)
+        if (_botActions.LowHealth || !_botActions.HasAmmo)
         {
-            _stateMachine.SwitchState(_botActions.SearchState);
-        }
-        else if (_botActions.HasAmmo && _botActions.EnemyNearDeath && _botActions.CanAttack)
-        {
-            _botActions.Attack();
+            if (_botActions.HasAmmo && _botActions.EnemyNearDeath && _botActions.CanAttack)
+            {
+                _botActions.Attack();
+            }
+            else
+            {
+                _botActions.Hide();
+            }
         }
         else
         {
-            _botActions.Hide();
+            _stateMachine.SwitchState(_botActions.SearchState);
         }
     }
     public override void ExitState()

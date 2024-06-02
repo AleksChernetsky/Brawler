@@ -153,5 +153,6 @@ public class BotActions : MonoBehaviour
     {
         StateMachine.CurrentState = null;
         _agent.isStopped = true;
+        _agent.enabled = false;
     }
 }
