@@ -1914,7 +1914,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.4442835
+  m_Radius: 0.45
   m_Height: 2.1672695
   m_Direction: 1
   m_Center: {x: -0.004734993, y: 1.0807763, z: 0.037623405}
@@ -1953,7 +1953,7 @@ MonoBehaviour:
     m_Bits: 8
   _distanceToCheck: 15
   _distanceToChase: 11
-  _distanceToAttack: 7
+  _distanceToAttack: 4
   Enemy: {fileID: 0}
   DistanceToEnemy: 0
   EnemyBlocked: 0
@@ -1985,16 +1985,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponType: 0
-  damage: 7
+  damage: 4
   fireRate: 1.25
   weaponMuzzle: {fileID: 7270677759512660672}
   projectilePrefab: {fileID: 6965950164403759309, guid: 3857fbaf79ec0d94b8142f312d0ca5ff, type: 3}
   muzzleFlash: {fileID: 6661093951499755344}
+  bulletsPerShot: 15
+  timeBetweenBullets: 0
   baseSpread: 15
   bulletSpeed: 15
-  bulletsPerShot: 15
-  timeBetweenShots: 0
-  clipReloadTime: 4
   _fire: {fileID: 8300000, guid: ab5da3c962177124aa130e7c33c186ae, type: 3}
 --- !u!82 &9099159673718564967
 AudioSource:

@@ -21,9 +21,10 @@ public class ObjectPool : MonoBehaviour
         {
             Instance = this;
         }
+        CreatePool();
     }
 
-    private void Start() => CreatePool();
+    //private void Start() => CreatePool();
 
     private void CreatePool()
     {
@@ -58,7 +59,7 @@ public class ObjectPool : MonoBehaviour
                 return pooledProjectiles[i];
             }
         }
-        throw new Exception("There is no free element in pool");
+        throw new Exception("There is no free projectile in pool");
     }
     public GameObject GetFreeDamageText()
     {
@@ -69,6 +70,6 @@ public class ObjectPool : MonoBehaviour
                 return pooledDamageTexts[i];
             }
         }
-        throw new Exception("There is no free element in pool");
+        throw new Exception("There is no free damage text in pool");
     }
 }

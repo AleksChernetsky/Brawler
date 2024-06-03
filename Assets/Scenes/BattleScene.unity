@@ -3783,7 +3783,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2129008689400294874, guid: c04e6833bfa202d48b0fbc0da17243e2, type: 3}
       propertyPath: m_MovementRange
-      value: 75
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 3253565017661167858, guid: c04e6833bfa202d48b0fbc0da17243e2, type: 3}
       propertyPath: m_Pivot.x
@@ -3811,11 +3811,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3253565017661167858, guid: c04e6833bfa202d48b0fbc0da17243e2, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 150
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 3253565017661167858, guid: c04e6833bfa202d48b0fbc0da17243e2, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 150
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 3253565017661167858, guid: c04e6833bfa202d48b0fbc0da17243e2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3867,7 +3867,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3561497849504232192, guid: c04e6833bfa202d48b0fbc0da17243e2, type: 3}
       propertyPath: m_Name
-      value: CombatBackGround
+      value: CombatBackground
       objectReference: {fileID: 0}
     - target: {fileID: 3561497849504232192, guid: c04e6833bfa202d48b0fbc0da17243e2, type: 3}
       propertyPath: m_Layer
@@ -3875,11 +3875,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4836706852973050802, guid: c04e6833bfa202d48b0fbc0da17243e2, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 150
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 4836706852973050802, guid: c04e6833bfa202d48b0fbc0da17243e2, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 150
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 4836706852973050802, guid: c04e6833bfa202d48b0fbc0da17243e2, type: 3}
       propertyPath: m_LocalRotation.x
@@ -9803,10 +9803,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 1385646673}
     m_Modifications:
     - target: {fileID: 3408492889136601626, guid: 27f9fc1a92ec5a045b88329b9d0dd5be, type: 3}
-      propertyPath: _shootDirection
-      value: 
-      objectReference: {fileID: 1455769715}
-    - target: {fileID: 3408492889136601626, guid: 27f9fc1a92ec5a045b88329b9d0dd5be, type: 3}
       propertyPath: _joystickHandler
       value: 
       objectReference: {fileID: 673852306}
@@ -9853,14 +9849,6 @@ PrefabInstance:
     - target: {fileID: 4296046653877238242, guid: 27f9fc1a92ec5a045b88329b9d0dd5be, type: 3}
       propertyPath: m_Name
       value: Player Warrok
-      objectReference: {fileID: 0}
-    - target: {fileID: 4296046653877238242, guid: 27f9fc1a92ec5a045b88329b9d0dd5be, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6439107149259473400, guid: 27f9fc1a92ec5a045b88329b9d0dd5be, type: 3}
-      propertyPath: m_Radius
-      value: 0.45
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -11599,18 +11587,6 @@ PrefabInstance:
     - target: {fileID: 2988042593580029402, guid: cdb7c89999c5b94449732fc6794bdf48, type: 3}
       propertyPath: m_IsActive
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3090333042158248335, guid: cdb7c89999c5b94449732fc6794bdf48, type: 3}
-      propertyPath: m_Radius
-      value: 0.45
-      objectReference: {fileID: 0}
-    - target: {fileID: 5836936199556070185, guid: cdb7c89999c5b94449732fc6794bdf48, type: 3}
-      propertyPath: _distanceToAttack
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 6072906452497447568, guid: cdb7c89999c5b94449732fc6794bdf48, type: 3}
-      propertyPath: damage
-      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -13793,7 +13769,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 1.18
+  m_Intensity: 1.25
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -15585,10 +15561,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1385646673}
     m_Modifications:
-    - target: {fileID: 1366753728193070135, guid: e9059f2b3cd26794c8338b01e9c5aee8, type: 3}
-      propertyPath: m_Radius
-      value: 0.45
-      objectReference: {fileID: 0}
     - target: {fileID: 2463584477507426876, guid: e9059f2b3cd26794c8338b01e9c5aee8, type: 3}
       propertyPath: m_Name
       value: Enemy Warrok
@@ -15596,10 +15568,6 @@ PrefabInstance:
     - target: {fileID: 2463584477507426876, guid: e9059f2b3cd26794c8338b01e9c5aee8, type: 3}
       propertyPath: m_IsActive
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2850300842473772997, guid: e9059f2b3cd26794c8338b01e9c5aee8, type: 3}
-      propertyPath: _distanceToAttack
-      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2989186922004299910, guid: e9059f2b3cd26794c8338b01e9c5aee8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -15640,10 +15608,6 @@ PrefabInstance:
     - target: {fileID: 2989186922004299910, guid: e9059f2b3cd26794c8338b01e9c5aee8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4906257415571061502, guid: e9059f2b3cd26794c8338b01e9c5aee8, type: 3}
-      propertyPath: damage
-      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -18415,7 +18379,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.20754719, g: 0.20754719, b: 0.20754719, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -21611,14 +21575,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1385646673}
     m_Modifications:
-    - target: {fileID: 2187643343553643236, guid: 75aa45eccd6c71943b91528bd906454d, type: 3}
-      propertyPath: m_Radius
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 5006570682933070677, guid: 75aa45eccd6c71943b91528bd906454d, type: 3}
-      propertyPath: damage
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 6056689184355975965, guid: 75aa45eccd6c71943b91528bd906454d, type: 3}
       propertyPath: m_LocalPosition.x
       value: -26.57
@@ -28272,7 +28228,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1686232283667932094, guid: 1cb776017bd430f41b5c24a8e321f0c8, type: 3}
       propertyPath: m_MovementRange
-      value: 75
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 6261171344986952060, guid: 1cb776017bd430f41b5c24a8e321f0c8, type: 3}
       propertyPath: m_Name
@@ -28284,7 +28240,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7355634392009067908, guid: 1cb776017bd430f41b5c24a8e321f0c8, type: 3}
       propertyPath: m_Name
-      value: MoveBackGround
+      value: MoveBackground
       objectReference: {fileID: 0}
     - target: {fileID: 7355634392009067908, guid: 1cb776017bd430f41b5c24a8e321f0c8, type: 3}
       propertyPath: m_Layer
@@ -28292,11 +28248,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7621637688242658299, guid: 1cb776017bd430f41b5c24a8e321f0c8, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 150
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 7621637688242658299, guid: 1cb776017bd430f41b5c24a8e321f0c8, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 150
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 7621637688242658299, guid: 1cb776017bd430f41b5c24a8e321f0c8, type: 3}
       propertyPath: m_LocalRotation.x
@@ -28336,11 +28292,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8817610226091452022, guid: 1cb776017bd430f41b5c24a8e321f0c8, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 150
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 8817610226091452022, guid: 1cb776017bd430f41b5c24a8e321f0c8, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 150
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 8817610226091452022, guid: 1cb776017bd430f41b5c24a8e321f0c8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -28799,11 +28755,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!1 &1455769715 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 175370511646213171, guid: 27f9fc1a92ec5a045b88329b9d0dd5be, type: 3}
-  m_PrefabInstance: {fileID: 522282042}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1456669340
 GameObject:
   m_ObjectHideFlags: 0
@@ -29023,14 +28974,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1385646673}
     m_Modifications:
-    - target: {fileID: 1405752685600640574, guid: 6b03a31f2ed0b7e4ca719956e6939f13, type: 3}
-      propertyPath: damage
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 2461437202076900443, guid: 6b03a31f2ed0b7e4ca719956e6939f13, type: 3}
-      propertyPath: m_Radius
-      value: 0.45
-      objectReference: {fileID: 0}
     - target: {fileID: 3888304365911860612, guid: 6b03a31f2ed0b7e4ca719956e6939f13, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.6
@@ -29941,9 +29884,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1595590680}
-        m_TargetAssemblyTypeName: SimpleUIHandler, Assembly-CSharp
-        m_MethodName: ExitButtonAction
+      - m_Target: {fileID: 2100569833}
+        m_TargetAssemblyTypeName: SceneLoadHandler, Assembly-CSharp
+        m_MethodName: MainMenuButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -40898,26 +40841,6 @@ PrefabInstance:
     - target: {fileID: 843394024349358464, guid: 8f452fb96edf7544bbd789e3f98b47f4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5299564065886504632, guid: 8f452fb96edf7544bbd789e3f98b47f4, type: 3}
-      propertyPath: damage
-      value: 16
-      objectReference: {fileID: 0}
-    - target: {fileID: 5299564065886504632, guid: 8f452fb96edf7544bbd789e3f98b47f4, type: 3}
-      propertyPath: fireRate
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5299564065886504632, guid: 8f452fb96edf7544bbd789e3f98b47f4, type: 3}
-      propertyPath: bulletsPerShot
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5299564065886504632, guid: 8f452fb96edf7544bbd789e3f98b47f4, type: 3}
-      propertyPath: clipReloadTime
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 6081944660386954597, guid: 8f452fb96edf7544bbd789e3f98b47f4, type: 3}
-      propertyPath: m_Radius
-      value: 0.4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

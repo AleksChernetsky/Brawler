@@ -634,7 +634,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8a236ee3c4b6a4745a467ebf25cf1a07, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -24.06
+      value: -26.57
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8a236ee3c4b6a4745a467ebf25cf1a07, type: 3}
       propertyPath: m_LocalPosition.y
@@ -642,7 +642,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8a236ee3c4b6a4745a467ebf25cf1a07, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -25.42
+      value: -23.11
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8a236ee3c4b6a4745a467ebf25cf1a07, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2537,7 +2537,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.25400925
+  m_Radius: 0.4
   m_Height: 1.7659664
   m_Direction: 1
   m_Center: {x: -0.008199692, y: 0.9514961, z: 0.008199692}
@@ -2608,16 +2608,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponType: 3
-  damage: 4
+  damage: 5
   fireRate: 1
   weaponMuzzle: {fileID: 592471579150888538}
   projectilePrefab: {fileID: 6965950164403759309, guid: 3857fbaf79ec0d94b8142f312d0ca5ff, type: 3}
   muzzleFlash: {fileID: 4448676143413881485}
+  bulletsPerShot: 7
+  timeBetweenBullets: 0.03
   baseSpread: 5
   bulletSpeed: 25
-  bulletsPerShot: 7
-  timeBetweenShots: 0.05
-  clipReloadTime: 4
   _fire: {fileID: 8300000, guid: 1a48fa0ba74513f42983317e53d5aa53, type: 3}
 --- !u!82 &8231793694173998699
 AudioSource:

@@ -5,18 +5,17 @@ public class Projectile : MonoBehaviour
 {
     [SerializeField] private Rigidbody _projectileRigidbody;
     private float _timer;
+    private float _timeToDestroy = 0.5f;
+
     public DamageInfo DamageInfo;
-
     public Rigidbody RigidBody => _projectileRigidbody;
-    public float DestroyTime = 3;
-
     public int Damage { get; set; }
 
     private void FixedUpdate()
     {
         _timer += Time.deltaTime;
 
-        if (_timer >= DestroyTime)
+        if (_timer >= _timeToDestroy)
         {
             ResetProjectile();
         }
@@ -35,12 +34,12 @@ public class Projectile : MonoBehaviour
         }
     }
 
-    private void ResetProjectile()
+    public void ResetProjectile()
     {
-        gameObject.SetActive(false);
         _timer = 0;
         _projectileRigidbody.velocity = Vector3.zero;
         _projectileRigidbody.position = Vector3.zero;
         _projectileRigidbody.rotation = Quaternion.identity;
+        gameObject.SetActive(false);
     }
 }

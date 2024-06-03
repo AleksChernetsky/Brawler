@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-
+﻿
 public class AttackState : BaseState
 {
     public AttackState(BotActions botActions, StateMachine stateMachine) : base(botActions, stateMachine) { }
@@ -16,7 +15,7 @@ public class AttackState : BaseState
             {
                 _botActions.Attack();
             }
-            else
+            else if(!_botActions.EnemyNearDeath)
             {
                 _stateMachine.SwitchState(_botActions.HideState);
             }

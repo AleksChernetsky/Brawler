@@ -589,7 +589,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 298869901b5589c438d87e69f710c654, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.36
+      value: 4.6
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 298869901b5589c438d87e69f710c654, type: 3}
       propertyPath: m_LocalPosition.y
@@ -597,7 +597,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 298869901b5589c438d87e69f710c654, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.21
+      value: 18.4
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 298869901b5589c438d87e69f710c654, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1279,7 +1279,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.4419694
+  m_Radius: 0.45
   m_Height: 1.7486827
   m_Direction: 1
   m_Center: {x: 0.004835874, y: 0.86276615, z: 0.18376374}
@@ -1350,7 +1350,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponType: 4
-  damage: 20
+  damage: 40
   fireRate: 1.25
   _fistSlashEffect: {fileID: 6165502279303474819}
   _clawSlashEffect: {fileID: 6677465038777750013}

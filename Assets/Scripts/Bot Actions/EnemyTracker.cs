@@ -79,7 +79,7 @@ public class EnemyTracker : MonoBehaviour
     {
         if (Enemy != null && Enemy.TryGetComponent(out VitalitySystem vitalitySystem))
         {
-            if (vitalitySystem.CurrentHealth <= vitalitySystem.MaxHealth * 0.15f)
+            if (vitalitySystem.CurrentHealth <= vitalitySystem.MaxHealth * 0.3f)
             {
                 return true;
             }
